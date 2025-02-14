@@ -1,3 +1,12 @@
+
+body{
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow: auto; 
+}
+
+
 .entity-modal {
     display: flex;
     flex-direction: column;
@@ -14,4 +23,19 @@
 
 .submit-button{
     width:30px;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
 }
