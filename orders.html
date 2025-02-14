@@ -7,8 +7,18 @@
 <link rel="stylesheet" href="index.css">
 
 <body>
-<h1>Manage Orders</h1>
-<div class="create-entity-modal">
+    <header>
+        <h1>Manage Orders</h1>
+        <ul>
+            <li><a href="customers.html">Manage Customers</a></li>
+            <li><a href="reservations.html">Manage Reservations</a></li>
+            <li><a href="orders.html">Manage Orders</a></li>
+            <li><a href="menu.html">Manage Menu Items</a></li>
+            <li><a href="cats.html">Manage Cats</a></li>
+        </ul>
+    </header>
+
+<div class="entity-modal">
     <h3>Create a new order</h3>
     <form class="entity-attribute-selection">
         <div class="attribute-field">
@@ -29,5 +39,53 @@
         <button type='submit' class="submit_button">Add Order</button>
     </form>
 </div>
+
+    
+<div class="entity-modal">
+    <h3>Update an order</h3>
+    <form class="entity-attribute-selection">
+        <div class="attribute-field">
+            <label for='orderCustomerId'>Customer ID:</label>
+            <input type='number' id='orderCustomerId' name='orderCustomerId' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='orderTime'>Order Time:</label>
+            <input type='datetime-local' id='orderTime' name='orderTime' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='orderTotal'>Order Total:</label>
+            <input type='number' step="0.01" id='orderTotal' name='orderTotal' required>
+        </div>
+
+        <button type='submit' class="submit_button">Update Order</button>
+    </form>
+</div>
+
+
+<div class="entity-modal">
+    <h3>Delete an order</h3>
+    <form class="entity-attribute-selection">
+        <div class="attribute-field">
+            <label for='orderCustomerId'>Customer ID:</label>
+            <input type='number' id='orderCustomerId' name='orderCustomerId' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='orderTime'>Order Time:</label>
+            <input type='datetime-local' id='orderTime' name='orderTime' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='orderTotal'>Order Total:</label>
+            <input type='number' step="0.01" id='orderTotal' name='orderTotal' required>
+        </div>
+
+        <button type='submit' class="submit_button">Delete Order</button>
+    </form>
+</div>
+
+
 </body>
 </html>
