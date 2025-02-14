@@ -3,11 +3,31 @@
 <head>
 <title>Manage Orders</title>
 </head>
+
+<link rel="stylesheet" href="index.css">
+
 <body>
 <h1>Manage Orders</h1>
-<form>
-<label for='orderTime'>Order Time:</label><input type='datetime-local' id='orderTime' name='orderTime' required>
-<button type='submit'>Add Order</button>
-</form>
+<div class="create-entity-modal">
+    <h3>Create a new order</h3>
+    <form class="entity-attribute-selection">
+        <div class="attribute-field">
+            <label for='orderCustomerId'>Customer ID:</label>
+            <input type='number' id='orderCustomerId' name='orderCustomerId' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='orderTime'>Order Time:</label>
+            <input type='datetime-local' id='orderTime' name='orderTime' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='orderTotal'>Order Total:</label>
+            <input type='number' step="0.01" id='orderTotal' name='orderTotal' required>
+        </div>
+
+        <button type='submit' class="submit_button">Add Order</button>
+    </form>
+</div>
 </body>
 </html>

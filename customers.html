@@ -3,11 +3,35 @@
 <head>
 <title>Manage Customers</title>
 </head>
+
+
+<link rel="stylesheet" href="index.css">
+
 <body>
 <h1>Manage Customers</h1>
-<form>
-<label for='name'>Name:</label><input type='text' id='name' name='name' required>
-<button type='submit'>Add Customer</button>
-</form>
+
+
+<div class="create-entity-modal">
+    <h3>Create a new customer</h3>
+    <form class="entity-attribute-selection">
+        <div class="attribute-field">
+            <label for='customerName'>Customer Name:</label>
+            <input type='text' id='customerName' name='customerName' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='phoneNumber'>Phone Number:</label>
+            <input type='text' id='phoneNumber' name='phoneNumber' required>
+        </div>
+
+        <div class="attribute-field">
+            <label for='email'>Email:</label>
+            <input type='email' id='email' name='email' required>
+        </div>
+
+        <button type='submit' class="submit_button">Add Customer</button>
+    </form>
+
+</div>
 </body>
 </html>

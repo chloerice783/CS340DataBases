@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Manage Cats</title>
-</head>
-<body>
-<h1>Manage Cats</h1>
-<form>
-<label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
-<button type='submit'>Add Cat</button>
-</form>
-</body>
+
+    <link rel="stylesheet" href="index.css">
+
+    <head>
+        <title>Manage Cats</title>
+    </head>
+
+
+    <body>
+
+    <h1>Manage Cats</h1>
+
+    <div class="create-entity-modal">
+
+        <h3>Create a new cat</h3>
+
+        <form class="entity-attribute-selection">
+
+            <div class="attribute-field">
+                <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
+            </div>
+
+            <div class="attribute-field">
+                <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
+            </div>
+
+            <div class="attribute-field">        
+                <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
+            </div>
+
+            <div class="attribute-field">
+                <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
+            </div>
+
+            <button type='submit' class="submit_button">Add Cat</button>
+
+        </form>
+    
+
+    </div>
+
+    </body>
+
 </html>
