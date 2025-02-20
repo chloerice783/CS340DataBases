@@ -16,107 +16,99 @@
 
         
     <!---Table for cats --->
-    <table>
-        <tr>
-            <th>Cat ID</th>
-            <th>Age</th>
-            <th>Name</th>
-            <th>Breed</th>
-            <th>Status</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>4</td>
-            <td>Luna</td>
-            <td>Siamese</td>
-            <td>Available</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>5</td>
-            <td>Mittens</td>
-            <td>Domestic Shorthair</td>
-            <td>Adopted</td>
-        </tr>
+    <div class="entities_table">
+        <table>
+            <tr>
+                <th>Cat ID</th>
+                <th>Age</th>
+                <th>Name</th>
+                <th>Breed</th>
+                <th>Status</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>4</td>
+                <td>Luna</td>
+                <td>Siamese</td>
+                <td>Available</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>5</td>
+                <td>Mittens</td>
+                <td>Domestic Shorthair</td>
+                <td>Adopted</td>
+            </tr>
 
-        <tr>
-            <td>3</td>
-            <td>8</td>
-            <td>Lola</td>
-            <td>Maine Coon</td>
-            <td>Fostered</td>
-        </tr>
-    </table>
+            <tr>
+                <td>3</td>
+                <td>8</td>
+                <td>Lola</td>
+                <td>Maine Coon</td>
+                <td>Fostered</td>
+            </tr>
+        </table>
+
+        <!--Insert, delete, and update buttons for the table entities-->
+        <div class="table-buttons">
+            <button type='button' class="table_button">Add Cat</button>
+            <button type='button' class="table_button">Update Cat</button>
+            <button type='button' class="table_button">Delete Cat</button>
+
+        </div>
+    </div>
+
+        <div class="entity-modal">
+            <h3>Create a new cat</h3>
+            <form class="entity-attribute-selection">
+                <div class="attribute-field">
+                    <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
+                </div>
+                <div class="attribute-field">
+                    <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
+                </div>
+                <div class="attribute-field">        
+                    <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
+                </div>
+                <div class="attribute-field">
+                    <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
+                </div>
+                <button type='submit' class="submit_button">Add Cat</button>
+            </form>
+        </div>
 
         
-
-        <div class="modals">
-
-            <div class="entity-modal">
-                <h3>Create a new cat</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">        
-                        <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <button type='submit' class="submit_button">Add Cat</button>
-                </form>
-            </div>
-
-            
-            <div class="entity-modal">
-                <h3>Update a cat</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">        
-                        <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <button type='submit' class="submit_button">Add Cat</button>
-                </form>
-            </div>
+        <div class="entity-modal">
+            <h3>Update a cat</h3>
+            <form class="entity-attribute-selection">
+                <div class="attribute-field">
+                    <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
+                </div>
+                <div class="attribute-field">
+                    <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
+                </div>
+                <div class="attribute-field">
+                    <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
+                </div>
+                <div class="attribute-field">        
+                    <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
+                </div>
+                <div class="attribute-field">
+                    <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
+                </div>
+                <button type='submit' class="submit_button">Update Cat</button>
+            </form>
+        </div>
 
 
-            <div class="entity-modal">
-                <h3>Delete a cat</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">        
-                        <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <button type='submit' class="submit_button">Add Cat</button>
-                </form>
-            </div>
-
+        <div class="entity-modal">
+            <h3>Delete a cat</h3>
+            <form class="entity-attribute-selection">
+                <div class="attribute-field">
+                    <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
+                </div>
+                <button type='submit' class="submit_button">Delete Cat</button>
+            </form>
         </div>
 
     </body>
