@@ -13,6 +13,7 @@
     </header>
 
         <!---Table for orders --->
+    <div class="entities_table">
     <table>
         <tr>
             <th>Order ID</th>
@@ -40,6 +41,13 @@
             <td>70.75</td>
         </tr>
     </table>
+      <div class="table-buttons">
+            <button type='button' class="table_button">Add order</button>
+            <button type='button' class="table_button">Update order</button>
+            <button type='button' class="table_button">Delete order</button>
+     </div>
+    </div>
+    
 
 <div class="entity-modal">
     <h3>Create a new order</h3>
@@ -68,6 +76,10 @@
     <h3>Update an order</h3>
     <form class="entity-attribute-selection">
         <div class="attribute-field">
+            <label for='orderId'>Order ID:</label>
+            <input type='number' id='orderId' name='orderId' required>
+        </div>
+        <div class="attribute-field">
             <label for='orderCustomerId'>Customer ID:</label>
             <input type='number' id='orderCustomerId' name='orderCustomerId' required>
         </div>
@@ -91,18 +103,8 @@
     <h3>Delete an order</h3>
     <form class="entity-attribute-selection">
         <div class="attribute-field">
-            <label for='orderCustomerId'>Customer ID:</label>
-            <input type='number' id='orderCustomerId' name='orderCustomerId' required>
-        </div>
-
-        <div class="attribute-field">
-            <label for='orderTime'>Order Time:</label>
-            <input type='datetime-local' id='orderTime' name='orderTime' required>
-        </div>
-
-        <div class="attribute-field">
-            <label for='orderTotal'>Order Total:</label>
-            <input type='number' step="0.01" id='orderTotal' name='orderTotal' required>
+            <label for='orderId'>Order ID:</label>
+            <input type='number' id='orderId' name='orderId' required>
         </div>
 
         <button type='submit' class="submit_button">Delete Order</button>

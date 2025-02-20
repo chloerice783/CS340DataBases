@@ -51,8 +51,8 @@ app.get('/customers', function(req, res) {
 
 
 //Route for the menu table
-app.get('/menu', function(req, res) {
-    res.render('menu'); 
+app.get('/menuItems', function(req, res) {
+    res.render('menuItems'); 
 });
 
 

@@ -13,6 +13,7 @@
     </header>
 
     <!---Table for reservations --->
+     <div class="entities_table">
     <table>
         <tr>
             <th>Reservation ID</th>
@@ -48,6 +49,12 @@
             <td>3</td>
         </tr>
     </table>
+      <div class="table-buttons">
+            <button type='button' class="table_button">Add reservation</button>
+            <button type='button' class="table_button">Update reservation</button>
+            <button type='button' class="table_button">Delete reservation</button>
+     </div>
+    </div>
 
 <div class="entity-modal">
     <h3>Create a new reservation</h3>
@@ -86,6 +93,10 @@
     <h3>Update a reservation</h3>
     <form class="entity-attribute-selection">
         <div class="attribute-field">
+            <label for='reservationId'>Reservation ID:</label>
+            <input type='number' id='reservationId' name='reservationId' required>
+        </div>
+        <div class="attribute-field">
             <label for='customerId'>Customer ID:</label>
             <input type='number' id='customerId' name='customerId' required>
         </div>
@@ -118,28 +129,8 @@
     <h3>Delete a reservation</h3>
     <form class="entity-attribute-selection">
         <div class="attribute-field">
-            <label for='customerId'>Customer ID:</label>
-            <input type='number' id='customerId' name='customerId' required>
-        </div>
-
-        <div class="attribute-field">
-            <label for='catId'>Cat ID:</label>
-            <input type='number' id='catId' name='catId' required>
-        </div>
-
-        <div class="attribute-field">
-            <label for='date'>Reservation Date:</label>
-            <input type='datetime-local' id='date' name='date' required>
-        </div>
-
-        <div class="attribute-field">
-            <label for='durationMinutes'>Duration (in minutes):</label>
-            <input type='number' id='durationMinutes' name='durationMinutes' required>
-        </div>
-
-        <div class="attribute-field">
-            <label for='guestCount'>Guest Count:</label>
-            <input type='number' id='guestCount' name='guestCount' required>
+            <label for='reservationId'>Reservation ID:</label>
+            <input type='number' id='reservationId' name='reservationId' required>
         </div>
         <button type='submit' class="submit_button">Delete Reservation</button>
     </form>

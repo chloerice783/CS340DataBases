@@ -9,6 +9,7 @@
 
 
 <!---Table for customers --->
+<div class="entities_table">
 <body>
     <header>
         <h1>Manage Customers</h1>
@@ -42,6 +43,12 @@
             <td>JaneSmith@example.com</td>
         </tr>
     </table>
+     <div class="table-buttons">
+            <button type='button' class="table_button">Add Customer</button>
+            <button type='button' class="table_button">Update Customer</button>
+            <button type='button' class="table_button">Delete Customer</button>
+        </div>
+    </div>
 
 
     <div class="entity-modal">
@@ -99,21 +106,6 @@
         <form class="entity-attribute-selection">
             <div class="attribute-field">
                 <label for='name'>Customer Id:</label><input type='text' id='name' name='name' required>
-            </div>
-               
-            <div class="attribute-field">
-                <label for='customerName'>Customer Name:</label>
-                <input type='text' id='customerName' name='customerName' required>
-             </div>
-
-            <div class="attribute-field">
-                <label for='phoneNumber'>Phone Number:</label>
-                <input type='text' id='phoneNumber' name='phoneNumber' required>
-            </div>
-
-            <div class="attribute-field">
-                <label for='email'>Email:</label>
-                <input type='email' id='email' name='email' required>
             </div>
 
             <button type='submit' class="submit_button">Delete Cat</button>
