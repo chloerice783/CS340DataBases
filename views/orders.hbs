@@ -9,14 +9,43 @@
 <body>
     <header>
         <h1>Manage Orders</h1>
-        <ul>
-            <li><a href="customers.html">Manage Customers</a></li>
-            <li><a href="reservations.html">Manage Reservations</a></li>
-            <li><a href="orders.html">Manage Orders</a></li>
-            <li><a href="menu.html">Manage Menu Items</a></li>
-            <li><a href="cats.html">Manage Cats</a></li>
-        </ul>
+        {{> navbar}}
     </header>
+
+    
+INSERT INTO Orders (customerId, orderTime, orderTotal) VALUES
+(1,  '2024-07-07 17:30:00', 20.35),
+(2,  '2024-03-07 16:25:00', 40.50),
+(3,  '2025-02-01 13:30:00', 70.75);
+
+        <!---Table for orders --->
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer ID</th>
+            <th>Order Time</th>
+            <th>Order Total</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Latte</td>
+            <td>6.99</td>
+            <td>Beverage</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cheesecake</td>
+            <td>10.99</td>
+            <td>Food</td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Cupcake</td>
+            <td>5.99</td>
+            <td>Food</td>
+        </tr>
+    </table>
 
 <div class="entity-modal">
     <h3>Create a new order</h3>

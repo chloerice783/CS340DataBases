@@ -9,14 +9,37 @@
 <body>
     <header>
         <h1>Manage Menu Items</h1>
-        <ul>
-            <li><a href="customers.html">Manage Customers</a></li>
-            <li><a href="reservations.html">Manage Reservations</a></li>
-            <li><a href="orders.html">Manage Orders</a></li>
-            <li><a href="menu.html">Manage Menu Items</a></li>
-            <li><a href="cats.html">Manage Cats</a></li>
-        </ul>
+        {{> navbar}}
     </header>
+
+    <!---Table for menu items --->
+    <table>
+        <tr>
+            <th>Menu Item ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Latte</td>
+            <td>6.99</td>
+            <td>Beverage</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Cheesecake</td>
+            <td>10.99</td>
+            <td>Food</td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>Cupcake</td>
+            <td>5.99</td>
+            <td>Food</td>
+        </tr>
+    </table>
     
 <div class="entity-modal">
     <h3>Create a new menu item</h3>
