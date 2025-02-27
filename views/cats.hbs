@@ -51,65 +51,73 @@
 
         <!--Insert, delete, and update buttons for the table entities-->
         <div class="table-buttons">
-            <button type='button' class="table_button">Add Cat</button>
-            <button type='button' class="table_button">Update Cat</button>
-            <button type='button' class="table_button">Delete Cat</button>
+            <button type='button' class="table_button" id="add_button">Add Cat</button>
+            <button type='button' class="table_button" id="update_button">Update Cat</button>
+            <button type='button' class="table_button" id="delete_button">Delete Cat</button>
         </div>
     </div>
 
-        <div class="entity-modal">
-            <h3>Create a new cat</h3>
-            <form class="entity-attribute-selection">
-                <div class="attribute-field">
-                    <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
-                </div>
-                <div class="attribute-field">
-                    <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
-                </div>
-                <div class="attribute-field">        
-                    <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
-                </div>
-                <div class="attribute-field">
-                    <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
-                </div>
-                <button type='submit' class="submit_button">Add Cat</button>
-            </form>
+        <div class="entity-modal-overlay hidden" id="create-overlay">
+            <div class="entity-modal" id="create_modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3>Create a new cat</h3>
+                <form class="entity-attribute-selection">
+                    <div class="attribute-field">
+                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <div class="attribute-field">
+                        <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <div class="attribute-field">        
+                        <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <div class="attribute-field">
+                        <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <button type='submit' class="submit_button">Add Cat</button>
+                </form>
+         </div>
+      </div>
+
+       <div class="entity-modal-overlay hidden" id="update-overlay">
+            <div class="entity-modal" id="update_modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3>Update a cat</h3>
+                <form class="entity-attribute-selection">
+                    <div class="attribute-field">
+                        <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <div class="attribute-field">
+                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <div class="attribute-field">
+                        <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <div class="attribute-field">        
+                        <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <div class="attribute-field">
+                        <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <button type='submit' class="submit_button">Update Cat</button>
+                </form>
+            </div>
         </div>
 
         
-        <div class="entity-modal">
-            <h3>Update a cat</h3>
-            <form class="entity-attribute-selection">
-                <div class="attribute-field">
-                    <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
-                </div>
-                <div class="attribute-field">
-                    <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
-                </div>
-                <div class="attribute-field">
-                    <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
-                </div>
-                <div class="attribute-field">        
-                    <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
-                </div>
-                <div class="attribute-field">
-                    <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
-                </div>
-                <button type='submit' class="submit_button">Update Cat</button>
-            </form>
+       <div class="entity-modal-overlay hidden" id="delete-overlay">
+            <div class="entity-modal" id="delete-modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3>Delete a cat</h3>
+                <form class="entity-attribute-selection">
+                    <div class="attribute-field">
+                        <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    <button type='submit' class="submit_button">Delete Cat</button>
+                </form>
+            </div>
         </div>
-
-
-        <div class="entity-modal">
-            <h3>Delete a cat</h3>
-            <form class="entity-attribute-selection">
-                <div class="attribute-field">
-                    <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
-                </div>
-                <button type='submit' class="submit_button">Delete Cat</button>
-            </form>
-        </div>
-
+        <script src="index.js"></script>
     </body>
 
 </html>

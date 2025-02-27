@@ -1,117 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<title>Manage Customers</title>
-</head>
+    <head>
+    <title>Manage Customers</title>
+    </head>
 
 
-<link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css">
 
 
-<!---Table for customers --->
-<div class="entities_table">
-<body>
-    <header>
-        <h1>Manage Customers</h1>
-            {{> navbar}}
-    </header>
+    <!---Table for customers --->
+    <div class="entities_table">
+    <body>
+        <header>
+            <h1>Manage Customers</h1>
+                {{> navbar}}
+        </header>
 
-    <table>
-        <tr>
-            <th>Customer ID</th>
-            <th>Name</th>
-            <th>Phone Number</th>
-            <th>Email</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>John Smith</td>
-            <td>111-222-3333</td>
-            <td>JohnSmith@example.com</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Mary Smith</td>
-            <td>222-111-3333</td>
-            <td>MarySmith@example.com</td>
-        </tr>
+        <table>
+            <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>John Smith</td>
+                <td>111-222-3333</td>
+                <td>JohnSmith@example.com</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Mary Smith</td>
+                <td>222-111-3333</td>
+                <td>MarySmith@example.com</td>
+            </tr>
 
-        <tr>
-            <td>3</td>
-            <td>Jane Smith</td>
-            <td>333-222-1111</td>
-            <td>JaneSmith@example.com</td>
-        </tr>
-    </table>
-     <div class="table-buttons">
-            <button type='button' class="table_button">Add Customer</button>
-            <button type='button' class="table_button">Update Customer</button>
-            <button type='button' class="table_button">Delete Customer</button>
+            <tr>
+                <td>3</td>
+                <td>Jane Smith</td>
+                <td>333-222-1111</td>
+                <td>JaneSmith@example.com</td>
+            </tr>
+        </table>
+        <div class="table-buttons">
+                <button type='button' class="table_button" id="add_button">Add Customer</button>
+                <button type='button' class="table_button" id="update_button">Update Customer</button>
+                <button type='button' class="table_button" id="delete_button">Delete Customer</button>
+            </div>
         </div>
-    </div>
-
-
-    <div class="entity-modal">
-    <h3>Create a new customer</h3>
-        <form class="entity-attribute-selection">
-            <div class="attribute-field">
-                <label for='customerName'>Customer Name:</label>
-                <input type='text' id='customerName' name='customerName' required>
-            </div>
-
-            <div class="attribute-field">
-                <label for='phoneNumber'>Phone Number:</label>
-                <input type='text' id='phoneNumber' name='phoneNumber' required>
-            </div>
-
-            <div class="attribute-field">
-                <label for='email'>Email:</label>
-                <input type='email' id='email' name='email' required>
-            </div>
-
-            <button type='submit' class="submit_button">Add Customer</button>
-        </form>
-    </div>
 
         
-    <div class="entity-modal">
-        <h3>Update a customer</h3>
-        <form class="entity-attribute-selection">
-            <div class="attribute-field">
-                <label for='name'>Customer Id:</label><input type='text' id='name' name='name' required>
-            </div>
-               
-            <div class="attribute-field">
-                <label for='customerName'>Customer Name:</label>
-                <input type='text' id='customerName' name='customerName' required>
-             </div>
+        <div class="entity-modal-overlay hidden" id="create-overlay">
+            <div class="entity-modal" id="create_modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3>Create a new customer</h3>
+                    <form class="entity-attribute-selection">
+                        <div class="attribute-field">
+                            <label for='customerName'>Customer Name:</label>
+                            <input type='text' id='customerName' name='customerName' required>
+                        </div>
 
-            <div class="attribute-field">
-                <label for='phoneNumber'>Phone Number:</label>
-                <input type='text' id='phoneNumber' name='phoneNumber' required>
-            </div>
+                        <div class="attribute-field">
+                            <label for='phoneNumber'>Phone Number:</label>
+                            <input type='text' id='phoneNumber' name='phoneNumber' required>
+                        </div>
 
-            <div class="attribute-field">
-                <label for='email'>Email:</label>
-                <input type='email' id='email' name='email' required>
-            </div>
+                        <div class="attribute-field">
+                            <label for='email'>Email:</label>
+                            <input type='email' id='email' name='email' required>
+                        </div>
 
-            <button type='submit' class="submit_button">Update Customer</button>
-        </form>
+                        <button type='submit' class="submit_button">Add Customer</button>
+                    </form>
+            </div>
+        </div>
+
+        <div class="entity-modal-overlay hidden" id="update-overlay">
+            <div class="entity-modal" id="update_modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3>Update a customer</h3>
+                <form class="entity-attribute-selection">
+                    <div class="attribute-field">
+                        <label for='name'>Customer Id:</label><input type='text' id='name' name='name' required>
+                    </div>
+                    
+                    <div class="attribute-field">
+                        <label for='customerName'>Customer Name:</label>
+                        <input type='text' id='customerName' name='customerName' required>
+                    </div>
+
+                    <div class="attribute-field">
+                        <label for='phoneNumber'>Phone Number:</label>
+                        <input type='text' id='phoneNumber' name='phoneNumber' required>
+                    </div>
+
+                    <div class="attribute-field">
+                        <label for='email'>Email:</label>
+                        <input type='email' id='email' name='email' required>
+                    </div>
+
+                    <button type='submit' class="submit_button">Update Customer</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="entity-modal-overlay hidden" id="delete-overlay">
+            <div class="entity-modal" id="delete_modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3>Delete a customer</h3>
+                <form class="entity-attribute-selection">
+                    <div class="attribute-field">
+                        <label for='name'>Customer Id:</label><input type='text' id='name' name='name' required>
+                    </div>
+
+                    <button type='submit' class="submit_button">Delete Cat</button>
+                </form>
+            </div>
+        </div>
+
     </div>
 
-
-    <div class="entity-modal">
-        <h3>Delete a customer</h3>
-        <form class="entity-attribute-selection">
-            <div class="attribute-field">
-                <label for='name'>Customer Id:</label><input type='text' id='name' name='name' required>
-            </div>
-
-            <button type='submit' class="submit_button">Delete Cat</button>
-        </form>
-    </div>
-
-</div>
-</body>
+        <script src="index.js"></script>
+    </body>
 </html>

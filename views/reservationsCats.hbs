@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Reservation-Cat</title>
+</head>
+<body>
+    <header>
+    <h1>Manage Reservation-Cat</h1>
+    {{> navbar}}
+    </header>
+
+    <h2>Assign a Cat to a Reservation</h2>
+    <form>
+        <label for="reservationId">Reservation ID:</label>
+        <input type="text" id="reservationId" name="reservationId" required>
+        <label for="catId">Cat ID:</label>
+        <input type="text" id="catId" name="catId" required>
+        <label for="time">Time:</label>
+        <input type="datetime-local" id="time" name="time" required>
+        <button type="submit">Assign Cat</button>
+    </form>
+    
+    <h2>Assigned Cats</h2>
+    <table border="1">
+        <tr>
+            <th>Reservation ID</th>
+            <th>Cat ID</th>
+            <th>Time</th>
+        </tr>
+    </table>
+
+    <script src="index.js"></script>
+</body>
+</html>

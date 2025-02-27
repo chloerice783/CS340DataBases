@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Order-Menu Item</title>
+</head>
+<body>
+
+     <header>
+    <h1>Manage Order-Menu Item</h1>
+    {{> navbar}}
+    </header>
+    <h2>Assign a Menu Item to an Order</h2>
+    <form>
+        <label for="orderId">Order ID:</label>
+        <input type="text" id="orderId" name="orderId" required>
+        <label for="menuItemId">Menu Item ID:</label>
+        <input type="text" id="menuItemId" name="menuItemId" required>
+        <button type="submit">Assign Menu Item</button>
+    </form>
+    
+    <h2>Assigned Menu Items</h2>
+    <table border="1">
+        <tr>
+            <th>Order ID</th>
+            <th>Menu Item ID</th>
+        </tr>
+    </table>
+</body>
+</html>

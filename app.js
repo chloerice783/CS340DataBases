@@ -66,6 +66,16 @@ app.get('/reservations', function(req, res) {
     res.render('reservations'); 
 });
 
+//Route for the reservations table
+app.get('/reservationsCats', function(req, res) {
+    res.render('reservationsCats'); 
+});
+
+//Route for the reservations table
+app.get('/orderMenuItems', function(req, res) {
+    res.render('orderMenuItems'); 
+});
+
 //Listener to start the server
 app.listen(PORT, function() {
     console.log('Server running on http://localhost:' + PORT);

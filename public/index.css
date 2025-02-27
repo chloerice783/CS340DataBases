@@ -84,7 +84,21 @@ tr:nth-child(even) {
 
 tr:hover {
     background-color: #f1d1f0;
+
+    
 }
+
+.entity-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Dark semi-transparent background */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
 
 /* Entity Forms (Modals) */
 .entity-modal {
@@ -95,6 +109,12 @@ tr:hover {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
+            
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
 }
 
 .entity-modal h3 {
@@ -128,6 +148,23 @@ tr:hover {
     border: 2px solid #edc9ea;
     border-radius: 5px;
     font-size: 16px;
+}
+
+#modal-close{
+
+    background-color: #5a2355;
+    color: white;
+}
+    
+#modal-close:hover{
+
+    cursor: pointer;
+    background-color: #451b42;
+
+}
+
+.hidden {
+    display: none !important;
 }
 
 button.submit_button, button.table_button {
