@@ -103,11 +103,57 @@ app.get('/reservations', function(req, res) {
     res.render('reservations'); 
 });
 
-//Route for the reservations table
-app.get('/reservationsCats', function(req, res) {
-    res.render('reservationsCats'); 
+//Route to Display ReservationCats Data~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+app.get('/reservationcats', (req, res) => {
+    const query = "SELECT * FROM ReservationCats";
+    db.pool.query(query, (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error retrieving ReservationCats data.");
+        }
+        res.render('reservationcats', { reservationcats: results });
+    });
 });
 
+// Route to Add a New Reservation-Cat Relationship
+app.post('/reservationcats/add', (req, res) => {
+    const { reservationId, catId } = req.body;
+    const query = "INSERT INTO ReservationCats (reservationId, catId) VALUES (?, ?)";
+    db.pool.query(query, [reservationId, catId], (error) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error inserting ReservationCats record.");
+        }
+        res.redirect('/reservationcats');
+    });
+});
+
+// Route to Update an Existing Reservation-Cat Relationship
+app.post('/reservationcats/update', (req, res) => {
+    const { reservationId, catId, newCatId } = req.body;
+    const query = "UPDATE ReservationCats SET catId = ? WHERE reservationId = ? AND catId = ?";
+    db.pool.query(query, [newCatId, reservationId, catId], (error) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error updating ReservationCats record.");
+        }
+        res.redirect('/reservationcats');
+    });
+});
+
+// Route to Delete a Reservation-Cat Relationship
+app.post('/reservationcats/delete', (req, res) => {
+    const { reservationId, catId } = req.body;
+    const query = "DELETE FROM ReservationCats WHERE reservationId = ? AND catId = ?";
+    db.pool.query(query, [reservationId, catId], (error) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error deleting ReservationCats record.");
+        }
+        res.redirect('/reservationcats');
+    });
+});
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Route for the reservations table
 app.get('/orderMenuItems', function(req, res) {
     res.render('orderMenuItems'); 

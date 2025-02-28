@@ -16,11 +16,10 @@
 
         <div class="table-buttons">
             <button type='button' class="table_button" id="add_button">Add Customer</button>
-
         </div>
 
         <!-- Customers Table -->
-        <table>
+        <table class="customer-table">
             <tr>
                 <th>Customer ID</th>
                 <th>Name</th>
@@ -37,7 +36,7 @@
                 <td>
                     <div class="update-delete-section">
                         <!-- Update Form -->
-                        <form action="/customers/update/{{this.customerId}}" method="POST">
+                        <form action="/customers/update/{{this.customerId}}" method="POST" >
                             <input type="text" name="name" value="{{this.name}}" required>
                             <input type="text" name="phoneNumber" value="{{this.phoneNumber}}" required>
                             <input type="email" name="email" value="{{this.email}}" required>
@@ -54,30 +53,28 @@
             {{/each}}
         </table>
 
-    
-
-        
+   
         <div class="entity-modal-overlay hidden" id="create-overlay">
             <div class="entity-modal" id="create_modal">
                 <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
                 <h3>Create a new customer</h3>
-                    <form class="entity-attribute-selection">
+                    <form class="entity-attribute-selection" action="/customers/add" method="POST">
                         <div class="attribute-field">
-                            <label for='customerName'>Customer Name:</label>
-                            <input type='text' id='customerName' name='customerName' required>
+                            <label for='name'>Customer Name:</label>
+                            <input type='text' id='name' name='name' value="{{this.name}}" required>
                         </div>
 
                         <div class="attribute-field">
                             <label for='phoneNumber'>Phone Number:</label>
-                            <input type='text' id='phoneNumber' name='phoneNumber' required>
+                            <input type='text' id='phoneNumber' name='phoneNumber' value="{{this.phoneNumber}}" required>
                         </div>
 
                         <div class="attribute-field">
                             <label for='email'>Email:</label>
-                            <input type='email' id='email' name='email' required>
+                            <input type='email' id='email' name='email' value="{{this.email}}" required>
                         </div>
 
-                        <button type='submit' id="submit_button">Add Customer</button>
+                        <button type="submit" class="table_button" >Add Customer</button>
                     </form>
             </div>
         </div>

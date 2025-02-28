@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Manage Reservation-Cat</title>
+    </head>
+    <body>
+        <header>
+        <h1>Manage Reservation-Cat</h1>
+        {{> navbar}}
+        </header>
+
+        <div class="table-buttons">
+            <button type='button' class="table_button" id="add_button">Assign a Cat to a Reservation</button>
+        </div>
+
+                
+        <div class="entity-modal-overlay hidden" id="create-overlay">
+            <div class="entity-modal" id="create_modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                <h3>Assign a Cat to a Reservation</h3>
+                    <form class="entity-attribute-selection" action="/reservationcats/add" method="POST">
+                        <div class="attribute-field">
+                            <label for='catId'>Cat ID:</label>
+                            <input type='text' id='catId' name='catId' value="{{this.catId}}" required>
+                        </div>
+
+                        <div class="attribute-field">
+                            <label for='reservationId'>Reservation ID:</label>
+                            <input type='text' id='reservationId' name='reservationId' value="{{this.reservationId}}" required>
+                        </div>
+
+                        <button type='submit' id="submit_button">Assign cat</button>
+                    </form>
+            </div>
+        </div>
+        
+        <table>
+        <tr>
+            <th>Reservation ID</th>
+            <th>Cat ID</th>
+            <th>Actions</th>
+        </tr>
+        {{#each reservationcats}}
+        <tr>
+            <td>{{this.reservationId}}</td>
+            <td>{{this.catId}}</td>
+            <td>
+                <!-- Update Form -->
+                <form action="/reservationcats/update" method="POST" style="display:inline;">
+                    <input type="hidden" name="reservationId" value="{{this.reservationId}}">
+                    <input type="hidden" name="catId" value="{{this.catId}}">
+                    <label for="newCatId">New Cat ID:</label>
+                    <input type="number" name="newCatId" required>
+                    <button type="submit" class="table_button" >Update</button>
+                </form>
+
+                <!-- Delete Button -->
+                <form action="/reservationcats/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="reservationId" value="{{this.reservationId}}">
+                    <input type="hidden" name="catId" value="{{this.catId}}">
+                    <button type="submit" onclick="return confirm('Are you sure?');"  class="table_button" >Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+
+        <script src="index.js"></script>
+    </body>
+</html>
