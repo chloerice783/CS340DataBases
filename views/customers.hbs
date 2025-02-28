@@ -14,6 +14,11 @@
                 {{> navbar}}
         </header>
 
+        <div class="table-buttons">
+            <button type='button' class="table_button" id="add_button">Add Customer</button>
+
+        </div>
+
         <!-- Customers Table -->
         <table>
             <tr>
@@ -30,30 +35,26 @@
                 <td>{{this.phoneNumber}}</td>
                 <td>{{this.email}}</td>
                 <td>
-                    <!-- Update Form -->
-                    <form action="/customers/update/{{this.customerId}}" method="POST">
-                        <input type="text" name="name" value="{{this.name}}" required>
-                        <input type="text" name="phoneNumber" value="{{this.phoneNumber}}" required>
-                        <input type="email" name="email" value="{{this.email}}" required>
-                        <button type="submit">Update</button>
-                    </form>
-                    
-                    <!-- Delete Button -->
-                    <form action="/customers/delete/{{this.customerId}}" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
+                    <div class="update-delete-section">
+                        <!-- Update Form -->
+                        <form action="/customers/update/{{this.customerId}}" method="POST">
+                            <input type="text" name="name" value="{{this.name}}" required>
+                            <input type="text" name="phoneNumber" value="{{this.phoneNumber}}" required>
+                            <input type="email" name="email" value="{{this.email}}" required>
+                            <button type="submit" class="table_button" >Update</button>
+                        </form>
+                        
+                        <!-- Delete Button -->
+                        <form action="/customers/delete/{{this.customerId}}" method="POST">
+                            <button type="submit" class="table_button" >Delete</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             {{/each}}
         </table>
 
     
-        <div class="table-buttons">
-                <button type='button' class="table_button" id="add_button">Add Customer</button>
-                <button type='button' class="table_button" id="update_button">Update Customer</button>
-                <button type='button' class="table_button" id="delete_button">Delete Customer</button>
-            </div>
-        </div>
 
         
         <div class="entity-modal-overlay hidden" id="create-overlay">
@@ -78,49 +79,6 @@
 
                         <button type='submit' id="submit_button">Add Customer</button>
                     </form>
-            </div>
-        </div>
-
-        <div class="entity-modal-overlay hidden" id="update-overlay">
-            <div class="entity-modal" id="update_modal">
-                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
-                <h3>Update a customer</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='name'>Customer Id:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    
-                    <div class="attribute-field">
-                        <label for='customerName'>Customer Name:</label>
-                        <input type='text' id='customerName' name='customerName' required>
-                    </div>
-
-                    <div class="attribute-field">
-                        <label for='phoneNumber'>Phone Number:</label>
-                        <input type='text' id='phoneNumber' name='phoneNumber' required>
-                    </div>
-
-                    <div class="attribute-field">
-                        <label for='email'>Email:</label>
-                        <input type='email' id='email' name='email' required>
-                    </div>
-
-                    <button type='submit' class="submit_button">Update Customer</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="entity-modal-overlay hidden" id="delete-overlay">
-            <div class="entity-modal" id="delete_modal">
-                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
-                <h3>Delete a customer</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='name'>Customer Id:</label><input type='text' id='name' name='name' required>
-                    </div>
-
-                    <button type='submit' class="submit_button">Delete Cat</button>
-                </form>
             </div>
         </div>
 

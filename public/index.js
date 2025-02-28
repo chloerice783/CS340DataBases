@@ -7,8 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let button of buttons) {
         button.addEventListener('click', hideModal);
     }
-    document.getElementById('update_button').addEventListener('click', revealUpdateModal);
-    document.getElementById('delete_button').addEventListener('click', revealDeleteModal);
+
     document.getElementById('add_button').addEventListener('click', revealAddModal);
 
     document.getElementById('submit_button').addEventListener('click', getNewCustomer);
@@ -62,19 +61,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function revealUpdateModal(){
-
-        document.getElementById('update-overlay').classList.remove('hidden');
-        console.log("updating modal")
-
-    }
-
-    function revealDeleteModal(){
-
-        document.getElementById('delete-overlay').classList.remove('hidden');
-        console.log("Deleting modal")
-
-    }
 
     //JAVA SCRIPT PART BOTTOM
 
