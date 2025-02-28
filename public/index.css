@@ -167,7 +167,7 @@ tr:hover {
     display: none !important;
 }
 
-button.submit_button, button.table_button {
+button#submit_button, button.table_button {
     background-color: #5a2355;
     color: white;
     padding: 10px 20px;
@@ -178,7 +178,7 @@ button.submit_button, button.table_button {
     transition: all 0.3s ease-in-out;
 }
 
-button.submit_button:hover,  button.table_button:hover {
+button#submit_button:hover,  button.table_button:hover {
     background-color: #dcb6e0;
     transform: scale(1.05);
 }

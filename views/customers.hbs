@@ -14,33 +14,40 @@
                 {{> navbar}}
         </header>
 
+        <!-- Customers Table -->
         <table>
             <tr>
                 <th>Customer ID</th>
                 <th>Name</th>
                 <th>Phone Number</th>
                 <th>Email</th>
+                <th>Actions</th>
             </tr>
+            {{#each customers}}
             <tr>
-                <td>1</td>
-                <td>John Smith</td>
-                <td>111-222-3333</td>
-                <td>JohnSmith@example.com</td>
+                <td>{{this.customerId}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.phoneNumber}}</td>
+                <td>{{this.email}}</td>
+                <td>
+                    <!-- Update Form -->
+                    <form action="/customers/update/{{this.customerId}}" method="POST">
+                        <input type="text" name="name" value="{{this.name}}" required>
+                        <input type="text" name="phoneNumber" value="{{this.phoneNumber}}" required>
+                        <input type="email" name="email" value="{{this.email}}" required>
+                        <button type="submit">Update</button>
+                    </form>
+                    
+                    <!-- Delete Button -->
+                    <form action="/customers/delete/{{this.customerId}}" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Mary Smith</td>
-                <td>222-111-3333</td>
-                <td>MarySmith@example.com</td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>Jane Smith</td>
-                <td>333-222-1111</td>
-                <td>JaneSmith@example.com</td>
-            </tr>
+            {{/each}}
         </table>
+
+    
         <div class="table-buttons">
                 <button type='button' class="table_button" id="add_button">Add Customer</button>
                 <button type='button' class="table_button" id="update_button">Update Customer</button>
@@ -69,7 +76,7 @@
                             <input type='email' id='email' name='email' required>
                         </div>
 
-                        <button type='submit' class="submit_button">Add Customer</button>
+                        <button type='submit' id="submit_button">Add Customer</button>
                     </form>
             </div>
         </div>
