@@ -14,107 +14,72 @@
             {{> navbar}}
         </header>
 
-    <!---Table for cats --->
-    <div class="entities_table">
-        <table>
-            <tr>
-                <th>Cat ID</th>
-                <th>Age</th>
-                <th>Name</th>
-                <th>Breed</th>
-                <th>Status</th>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td>4</td>
-                <td>Luna</td>
-                <td>Siamese</td>
-                <td>Available</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>5</td>
-                <td>Mittens</td>
-                <td>Domestic Shorthair</td>
-                <td>Adopted</td>
-            </tr>
 
-            <tr>
-                <td>3</td>
-                <td>8</td>
-                <td>Lola</td>
-                <td>Maine Coon</td>
-                <td>Fostered</td>
-            </tr>
-        </table>
-
-        <!--Insert, delete, and update buttons for the table entities-->
+         <!--Insert button for the table entities-->
         <div class="table-buttons">
             <button type='button' class="table_button" id="add_button">Add Cat</button>
-            <button type='button' class="table_button" id="update_button">Update Cat</button>
-            <button type='button' class="table_button" id="delete_button">Delete Cat</button>
         </div>
+
+        <table class="cat-table">
+            <tr>
+                <th>Cat ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Breed</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            {{#each cats}}
+            <tr>
+                <td>{{this.catId}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.age}}</td>
+                <td>{{this.breed}}</td>
+                <td>{{this.status}}</td>
+                <td>
+                    <div class="update-delete-section">
+                        <!-- Update Form -->
+                        <form action="/cats/update/{{this.catId}}" method="POST" >
+                            <input type="text" name="name" value="{{this.name}}" required>
+                            <input type="text" name="age" value="{{this.age}}" required>
+                            <input type="text" name="breed" value="{{this.breed}}" required>
+                            <input type="text" name="status" value="{{this.status}}" required>
+                            <button type="submit" class="table_button" >Update</button>
+                        </form>
+                        
+                        <!-- Delete Button -->
+                        <form action="/customers/delete/{{this.catId}}" method="POST">
+                            <button type="submit" class="table_button" >Delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+
     </div>
 
         <div class="entity-modal-overlay hidden" id="create-overlay">
             <div class="entity-modal" id="create_modal">
                 <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
                 <h3>Create a new cat</h3>
-                <form class="entity-attribute-selection">
+                <form action="/cats/add" method="POST"  class="entity-attribute-selection">
                     <div class="attribute-field">
-                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
+                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' value="{{this.name}}" required>
                     </div>
                     <div class="attribute-field">
-                        <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
+                        <label for='breed'>Cat Breed:</label><input type='text' id='breed' name='breed' value="{{this.breed}}" required >
                     </div>
                     <div class="attribute-field">        
-                        <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
+                        <label for='age'>Cat Age:</label><input type='text' id='age' name='age' value="{{this.age}}" required>
                     </div>
                     <div class="attribute-field">
-                        <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
+                        <label for='status'>Cat Status:</label><input type='text' id='status' name='status' value="{{this.status}}" required>
                     </div>
                     <button type='submit' class="submit_button">Add Cat</button>
                 </form>
          </div>
       </div>
-
-       <div class="entity-modal-overlay hidden" id="update-overlay">
-            <div class="entity-modal" id="update_modal">
-                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
-                <h3>Update a cat</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Name:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Breed:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">        
-                        <label for='name'>Cat Age:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='name'>Cat Status:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <button type='submit' class="submit_button">Update Cat</button>
-                </form>
-            </div>
-        </div>
-
-       <div class="entity-modal-overlay hidden" id="delete-overlay">
-            <div class="entity-modal" id="delete-modal">
-                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
-                <h3>Delete a cat</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='name'>Cat Id:</label><input type='text' id='name' name='name' required>
-                    </div>
-                    <button type='submit' class="submit_button">Delete Cat</button>
-                </form>
-            </div>
-        </div>
         <script src="index.js"></script>
     </body>
 </html>

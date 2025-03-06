@@ -6,7 +6,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const PORT = 9759;
+const PORT = 9769;
 
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');     //Import express-handlebars
@@ -43,9 +43,43 @@ app.get('/', function(req, res) {
     res.render('index'); //Renders 'views/index.handlebars' by default
 });
 
-//Route for the cats table
-app.get('/cats', function(req, res) {
-    res.render('cats'); 
+//Route for the cats table~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+app.get('/cats', (req, res) => {
+    db.pool.query('SELECT * FROM Cats', (err, results) => {
+        if (err) throw err;
+        res.render('cats', { cats: results });
+    });
+});
+
+
+//CREATE - Add a new cat
+app.post('/cats/add', (req, res) => {
+    const { age, name, breed, status } = req.body;
+    db.pool.query('INSERT INTO Cats (name, age, breed, status) VALUES (?, ?, ?, ?)', 
+        [name, age, breed, status], (err) => {
+        if (err) throw err;
+        res.redirect('/cats');
+    });
+});
+
+//UPDATE - Modify an existing cat
+app.post('/cats/update/:id', (req, res) => {
+    const { age, name, breed, status } = req.body;
+    const catId = req.params.id;
+    db.pool.query('UPDATE Cats SET name=?, age=?,  breed=?, status=? WHERE catId=?', 
+        [name, age, breed, status, catId], (err) => {
+        if (err) throw err;
+        res.redirect('/cats');
+    });
+});
+
+//DELETE - Remove a cat
+app.post('/cats/delete/:id', (req, res) => {
+    const catId = req.params.id;
+    db.pool.query('DELETE FROM Cats WHERE catId=?', [catId], (err) => {
+        if (err) throw err;
+        res.redirect('/cats');
+    });
 });
 
 //READ- Route for the customers table ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -93,14 +127,71 @@ app.get('/menuItems', function(req, res) {
 });
 
 
-//Route for the orders table
-app.get('/orders', function(req, res) {
-    res.render('orders'); 
+//Route for the orders table~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+app.get('/orders', (req, res) => {
+    db.pool.query('SELECT * FROM Orders', (err, results) => {
+        if (err) throw err;
+        res.render('orders', { orders: results });
+    });
 });
 
-//Route for the reservations table
-app.get('/reservations', function(req, res) {
-    res.render('reservations'); 
+//CREATE - Add a new reservation
+app.post('/orders/add', (req, res) => {
+    const  { customerId, catId, date, durationMinutes, guestCount } = req.body;
+    db.pool.query('INSERT INTO Orders (customerId, catId, date, durationMinutes, guestCount ) VALUES (?, ?, ?, ?, ?)', 
+        [customerId, catId, date, durationMinutes, guestCount ], (err) => {
+        if (err) throw err;
+        res.redirect('/orders');
+    });
+});
+
+//UPDATE - Modify an existing reservation
+app.post('/orders/update/:id', (req, res) => {
+    const {customerId, catId, date, durationMinutes, guestCount } = req.body;
+    const orderId = req.params.id;
+    db.pool.query('UPDATE Orders SET customerId=?, catId=?, date=?, durationMinutes=?, guestCount=? WHERE reservationId=?', 
+        [customerId, catId, date, durationMinutes, guestCount, reservationId ], (err) => {
+        if (err) throw err;
+        res.redirect('/orders');
+    });
+});
+
+//Route for the reservations table~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+app.get('/reservations', (req, res) => {
+    db.pool.query('SELECT * FROM Reservations', (err, results) => {
+        if (err) throw err;
+        res.render('reservations', { reservations: results });
+    });
+});
+
+//CREATE - Add a new reservation
+app.post('/reservations/add', (req, res) => {
+    const  { customerId, catId, date, durationMinutes, guestCount } = req.body;
+    db.pool.query('INSERT INTO Reservations (customerId, catId, date, durationMinutes, guestCount ) VALUES (?, ?, ?, ?, ?)', 
+        [customerId, catId, date, durationMinutes, guestCount ], (err) => {
+        if (err) throw err;
+        res.redirect('/reservations');
+    });
+});
+
+//UPDATE - Modify an existing reservation
+app.post('/reservations/update/:id', (req, res) => {
+    const {customerId, catId, date, durationMinutes, guestCount } = req.body;
+    const reservationId = req.params.id;
+    db.pool.query('UPDATE Reservations SET customerId=?, catId=?, date=?, durationMinutes=?, guestCount=? WHERE reservationId=?', 
+        [customerId, catId, date, durationMinutes, guestCount, reservationId ], (err) => {
+        if (err) throw err;
+        res.redirect('/reservations');
+    });
+});
+
+//DELETE - Remove a reservation
+app.post('/reservations/delete/:id', (req, res) => {
+    const reservationId = req.params.id;
+    db.pool.query('DELETE FROM Reservations WHERE reservationId=?', [reservationId], (err) => {
+        if (err) throw err;
+        res.redirect('/reservations');
+    });
 });
 
 //Route to Display ReservationCats Data~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,7 +245,7 @@ app.post('/reservationcats/delete', (req, res) => {
     });
 });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//Route for the reservations table
+//Route for the menu items table
 app.get('/orderMenuItems', function(req, res) {
     res.render('orderMenuItems'); 
 });

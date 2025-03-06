@@ -12,9 +12,11 @@
             {{> navbar}}
         </header>
 
-        <!---Table for reservations --->
-        <div class="entities_table">
-        <table>
+        <div class="table-buttons">
+                <button type='button' class="table_button" id="add_button">Add reservation</button>
+        </div>
+
+            <table class="reservations-table">
             <tr>
                 <th>Reservation ID</th>
                 <th>Customer ID</th>
@@ -22,68 +24,67 @@
                 <th>Date</th>
                 <th>Duration mins</th>
                 <th>Guest count</th>
+                <th>Actions</th>
             </tr>
+            {{#each reservations}}
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2024-07-07 17:00:00</td>
-                <td>60</td>
-                <td>1</td>
+                <td>{{this.reservationId}}</td>
+                <td>{{this.customerId}}</td>
+                <td>{{this.catId}}</td>
+                <td>{{this.date}}</td>
+                <td>{{this.durationMinutes}}</td>
+                <td>{{this.guestCount}}</td>
+                <td>
+                    <div class="update-delete-section">
+                        <!-- Update Form -->
+                        <form action="/reservations/update/{{this.reservationId}}" method="POST" >
+                            <input type="number" name="customerId" value="{{this.customerId}}" required>
+                            <input type="number" name="catId" value="{{this.catId}}" required>
+                            <input type="datetime-local" name="date" value="{{this.date}}" required>
+                            <input type="number" name="durationMinutes" value="{{this.durationMinutes}}" required>
+                            <input type="number" name="guestCount" value="{{this.guestCount}}" required>
+                            <button type="submit" class="table_button" >Update</button>
+                        </form>
+                        
+                        <!-- Delete Button -->
+                        <form action="/customers/delete/{{this.catId}}" method="POST">
+                            <button type="submit" class="table_button" >Delete</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>1</td>
-                <td>3</td>
-                <td>2024-03-07 16:00:00</td>
-                <td>90</td>
-                <td>2</td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>3</td>
-                <td>1</td>
-                <td>2025-02-01 13:00:00</td>
-                <td>120</td>
-                <td>3</td>
-            </tr>
+            {{/each}}
         </table>
-        <div class="table-buttons">
-                <button type='button' class="table_button" id="add_button">Add reservation</button>
-                <button type='button' class="table_button" id="update_button">Update reservation</button>
-                <button type='button' class="table_button" id="delete_button">Delete reservation</button>
-        </div>
-        </div>
+
 
         <div class="entity-modal-overlay hidden" id="create-overlay">
             <div class="entity-modal">
                 <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
                 <h3>Create a new reservation</h3>
-                <form class="entity-attribute-selection">
+                <form action="/reservations/add" method="POST" class="entity-attribute-selection">
                     <div class="attribute-field">
                         <label for='customerId'>Customer ID:</label>
-                        <input type='number' id='customerId' name='customerId' required>
+                        <input type='number' id='customerId' name='customerId' value="{{this.customerId}}" required>
                     </div>
 
                     <div class="attribute-field">
                         <label for='catId'>Cat ID:</label>
-                        <input type='number' id='catId' name='catId' required>
+                        <input type='number' id='catId' name='catId'  value="{{this.catId}}" required>
                     </div>
 
                     <div class="attribute-field">
                         <label for='date'>Reservation Date:</label>
-                        <input type='datetime-local' id='date' name='date' required>
+                        <input type='datetime-local' id='date' name='date' value="{{this.date}}"  required>
                     </div>
 
                     <div class="attribute-field">
                         <label for='durationMinutes'>Duration (in minutes):</label>
-                        <input type='number' id='durationMinutes' name='durationMinutes' required>
+                        <input type='number' id='durationMinutes' name='durationMinutes' value="{{this.durationMinutes}}"  required>
                     </div>
 
                     <div class="attribute-field">
                         <label for='guestCount'>Guest Count:</label>
-                        <input type='number' id='guestCount' name='guestCount' required>
+                        <input type='number' id='guestCount' name='guestCount' value="{{this.guestCount}}"  required>
                     </div>
 
                     <button type='submit' class="submit_button">Add Reservation</button>
@@ -91,57 +92,6 @@
             </div>
         </div>
 
-        <div class="entity-modal-overlay hidden" id="update-overlay">
-            <div class="entity-modal">
-                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
-                <h3>Update a reservation</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='reservationId'>Reservation ID:</label>
-                        <input type='number' id='reservationId' name='reservationId' required>
-                    </div>
-                    <div class="attribute-field">
-                        <label for='customerId'>Customer ID:</label>
-                        <input type='number' id='customerId' name='customerId' required>
-                    </div>
-
-                    <div class="attribute-field">
-                        <label for='catId'>Cat ID:</label>
-                        <input type='number' id='catId' name='catId' required>
-                    </div>
-
-                    <div class="attribute-field">
-                        <label for='date'>Reservation Date:</label>
-                        <input type='datetime-local' id='date' name='date' required>
-                    </div>
-
-                    <div class="attribute-field">
-                        <label for='durationMinutes'>Duration (in minutes):</label>
-                        <input type='number' id='durationMinutes' name='durationMinutes' required>
-                    </div>
-
-                    <div class="attribute-field">
-                        <label for='guestCount'>Guest Count:</label>
-                        <input type='number' id='guestCount' name='guestCount' required>
-                    </div>
-                    <button type='submit' class="submit_button">Update Reservation</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="entity-modal-overlay hidden" id="delete-overlay">
-            <div class="entity-modal">
-                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
-                <h3>Delete a reservation</h3>
-                <form class="entity-attribute-selection">
-                    <div class="attribute-field">
-                        <label for='reservationId'>Reservation ID:</label>
-                        <input type='number' id='reservationId' name='reservationId' required>
-                    </div>
-                    <button type='submit' class="submit_button">Delete Reservation</button>
-                </form>
-            </div>
-        </div>
 
         <script src="index.js"></script>
     </body>
