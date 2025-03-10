@@ -16,35 +16,42 @@
             <button type='button' class="table_button" id="add_button">Add order</button>
         </div>
 
-            <!---Table for orders --->
-        <div class="entities_table">
-        <table>
+        <table class="order-table">
             <tr>
                 <th>Order ID</th>
                 <th>Customer ID</th>
                 <th>Order Time</th>
                 <th>Order Total</th>
+                <th>Actions</th>
             </tr>
+            {{#each orders}}
             <tr>
-                <td>1</td>
-                <td>2</td>
-                <td>2024-07-07 17:30:00</td>
-                <td>20.35</td>
+                <th>{{this.orderId}}</th>
+                <th>{{this.customerId}}</th>
+                <th>{{this.orderTime}}</th>
+                <th>{{this.orderTotal}}</th>
+                <td>
+                    <div class="update-delete-section">
+                        <!-- Update Form -->
+                        <form action="/cats/update/{{this.catId}}" method="POST" >
+                            <input type="text" name="name" value="{{this.name}}" required>
+                            <input type="text" name="age" value="{{this.age}}" required>
+                            <input type="text" name="breed" value="{{this.breed}}" required>
+                            <input type="text" name="status" value="{{this.status}}" required>
+                            <button type="submit" class="table_button" >Update</button>
+                        </form>
+                        
+                        <!-- Delete Button -->
+                        <form action="/customers/delete/{{this.catId}}" method="POST">
+                            <button type="submit" class="table_button" >Delete</button>
+                        </form>
+                    </div>
+                </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>3</td>
-                <td>2024-03-07 16:25:00</td>
-                <td>40.50</td>
-            </tr>
-
-            <tr>
-                <td>3</td>
-                <td>1</td>
-                <td>2025-02-01 13:30:00</td>
-                <td>70.75</td>
-            </tr>
+            {{/each}}
         </table>
+
+
         
     <div class="entity-modal-overlay hidden" id="create-overlay">
         <div class="entity-modal">

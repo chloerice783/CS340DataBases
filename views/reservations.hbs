@@ -16,44 +16,44 @@
                 <button type='button' class="table_button" id="add_button">Add reservation</button>
         </div>
 
-            <table class="reservations-table">
-            <tr>
-                <th>Reservation ID</th>
-                <th>Customer ID</th>
-                <th>Cat ID</th>
-                <th>Date</th>
-                <th>Duration mins</th>
-                <th>Guest count</th>
-                <th>Actions</th>
-            </tr>
-            {{#each reservations}}
-            <tr>
-                <td>{{this.reservationId}}</td>
-                <td>{{this.customerId}}</td>
-                <td>{{this.catId}}</td>
-                <td>{{this.date}}</td>
-                <td>{{this.durationMinutes}}</td>
-                <td>{{this.guestCount}}</td>
-                <td>
-                    <div class="update-delete-section">
-                        <!-- Update Form -->
-                        <form action="/reservations/update/{{this.reservationId}}" method="POST" >
-                            <input type="number" name="customerId" value="{{this.customerId}}" required>
-                            <input type="number" name="catId" value="{{this.catId}}" required>
-                            <input type="datetime-local" name="date" value="{{this.date}}" required>
-                            <input type="number" name="durationMinutes" value="{{this.durationMinutes}}" required>
-                            <input type="number" name="guestCount" value="{{this.guestCount}}" required>
-                            <button type="submit" class="table_button" >Update</button>
-                        </form>
-                        
-                        <!-- Delete Button -->
-                        <form action="/customers/delete/{{this.catId}}" method="POST">
-                            <button type="submit" class="table_button" >Delete</button>
-                        </form>
-                    </div>
-                </td>
-            </tr>
-            {{/each}}
+        <table class="reservations-table">
+        <tr>
+            <th>Reservation ID</th>
+            <th>Customer ID</th>
+            <th>Cat ID</th>
+            <th>Date</th>
+            <th>Duration mins</th>
+            <th>Guest count</th>
+            <th>Actions</th>
+        </tr>
+        {{#each reservations}}
+        <tr>
+            <td>{{this.reservationId}}</td>
+            <td>{{this.customerId}}</td>
+            <td>{{this.catId}}</td>
+            <td>{{this.date}}</td>
+            <td>{{this.durationMinutes}}</td>
+            <td>{{this.guestCount}}</td>
+            <td>
+                <div class="update-delete-section">
+                    <!-- Update Form -->
+                    <form action="/reservations/update/{{this.reservationId}}" method="POST" >
+                        <input type="number" name="customerId" value="{{this.customerId}}" required>
+                        <input type="number" name="catId" value="{{this.catId}}" required>
+                        <input type="datetime-local" name="date" value="{{this.date}}" required>
+                        <input type="number" name="durationMinutes" value="{{this.durationMinutes}}" required>
+                        <input type="number" name="guestCount" value="{{this.guestCount}}" required>
+                        <button type="submit" class="table_button" >Update</button>
+                    </form>
+                    
+                    <!-- Delete Button -->
+                    <form action="/customers/delete/{{this.catId}}" method="POST">
+                        <button type="submit" class="table_button" >Delete</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {{/each}}
         </table>
 
 
