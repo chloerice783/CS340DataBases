@@ -33,18 +33,21 @@
                 <td>
                     <div class="update-delete-section">
                         <!-- Update Form -->
-                        <form action="/cats/update/{{this.catId}}" method="POST" >
-                            <input type="text" name="name" value="{{this.name}}" required>
-                            <input type="text" name="age" value="{{this.age}}" required>
-                            <input type="text" name="breed" value="{{this.breed}}" required>
-                            <input type="text" name="status" value="{{this.status}}" required>
-                            <button type="submit" class="table_button" >Update</button>
+                        <form action="/orders/update/{{this.orderId}}" method="POST">
+                            <input type="text" name="customerId" value="{{this.customerId}}" required>
+                            <input type="datetime-local" name="orderTime" value="{{this.orderTime}}" required>
+                            <input type="text" name="orderTotal" value="{{this.orderTotal}}" required>
+                            <button type="submit" class="table_button">Update</button>
                         </form>
-                        
-                        <!-- Delete Button -->
-                        <form action="/customers/delete/{{this.catId}}" method="POST">
+                                                <!-- Delete Button -->
+                        <form action="/orders/delete/{{this.orderId}}" method="POST">
                             <button type="submit" class="table_button" >Delete</button>
                         </form>
+                        <!-- You can add a similar Delete Form here if needed -->
+                    </div>
+                </td>
+
+
                     </div>
                 </td>
             </tr>
@@ -57,10 +60,10 @@
         <div class="entity-modal">
             <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
             <h3>Create a new order</h3>
-            <form class="entity-attribute-selection">
+            <form class="entity-attribute-selection" action="/orders/create" method="POST">
                 <div class="attribute-field">
                     <label for='orderCustomerId'>Customer ID:</label>
-                    <input type='number' id='orderCustomerId' name='orderCustomerId' required>
+                    <input type='number' id='orderCustomerId' name='customerId' required>
                 </div>
 
                 <div class="attribute-field">
@@ -77,6 +80,7 @@
             </form>
         </div>
     </div>
+
 
 
     <div class="entity-modal-overlay hidden" id="update-overlay">

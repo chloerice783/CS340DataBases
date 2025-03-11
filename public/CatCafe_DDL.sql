@@ -13,43 +13,47 @@ CREATE TABLE Cats (
     status ENUM('Available', 'Adopted', 'Fostered') NOT NULL
 );
 
+CREATE TABLE MenuItems (
+    menuItemId INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10,2) NOT NULL
+);
+
 CREATE TABLE Reservations (
     reservationId INT AUTO_INCREMENT PRIMARY KEY,
     customerId INT NOT NULL,
-    catId Int NOT NULL,
+    catId INT NOT NULL,
     date DATETIME NOT NULL,
     durationMinutes INT NOT NULL,
     guestCount INT NOT NULL,
-    FOREIGN KEY (customerId) REFERENCES Customers(customerId),
-	FOREIGN KEY (catId) REFERENCES Cats(catId)
+    FOREIGN KEY (customerId) REFERENCES Customers(customerId) ON DELETE CASCADE,
+    FOREIGN KEY (catId) REFERENCES Cats(catId) ON DELETE CASCADE
 );
 
 CREATE TABLE Orders (
     orderId INT AUTO_INCREMENT PRIMARY KEY,
     customerId INT NOT NULL,
     orderTime DATETIME NOT NULL,
-    orderTotal DECIMAL(4,2) NOT NULL,
-    FOREIGN KEY (customerId) REFERENCES Customers(customerId)
+    orderTotal DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (customerId) REFERENCES Customers(customerId) ON DELETE CASCADE
 );
 
-CREATE TABLE MenuItems (
-    menuItemId INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    price DECIMAL(4,2) NOT NULL,
-    category ENUM('Food', 'Beverage', 'Misc') NOT NULL
+CREATE TABLE OrderMenuItems (
+    orderMenuItemId INT AUTO_INCREMENT PRIMARY KEY,
+    orderId INT NOT NULL,
+    menuItemId INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (orderId) REFERENCES Orders(orderId) ON DELETE CASCADE,
+    FOREIGN KEY (menuItemId) REFERENCES MenuItems(menuItemId) ON DELETE CASCADE
 );
 
-  
 CREATE TABLE ReservationCats (
+    reservationCatId INT AUTO_INCREMENT PRIMARY KEY,
     reservationId INT NOT NULL,
     catId INT NOT NULL,
-    time DATETIME NOT NULL,
-    PRIMARY KEY (reservationId, catId),
-    FOREIGN KEY (reservationId) REFERENCES Reservations(reservationId),
-    FOREIGN KEY (catId) REFERENCES Cats(catId)
-    
+    FOREIGN KEY (reservationId) REFERENCES Reservations(reservationId) ON DELETE CASCADE,
+    FOREIGN KEY (catId) REFERENCES Cats(catId) ON DELETE CASCADE
 );
-
 -- Sample Data Insertions
 INSERT INTO Customers (name, phoneNumber, email) VALUES
 ('John Smith', '111-222-3333', 'JohnSmith@example.com'),

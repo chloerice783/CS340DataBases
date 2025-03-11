@@ -122,10 +122,52 @@ app.post('/customers/delete/:id', (req, res) => {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Route for the menu table
-app.get('/menuItems', function(req, res) {
-    res.render('menuItems'); 
+app.get('/menuItems', (req, res) => {
+    db.pool.query('SELECT * FROM MenuItems', (err, results) => {
+        if (err) throw err;
+        res.render('menuItems', { menuItems: results });
+    });
 });
 
+// CREATE 
+app.post('/menuItems/add', (req, res) => {
+    const { name, price, category } = req.body;
+    db.pool.query(
+        'INSERT INTO MenuItems (name, price, category) VALUES (?, ?, ?)', 
+        [name, price, category],
+        (err) => {
+            if (err) throw err;
+            res.redirect('/menuItems');
+        }
+    );
+});
+
+// UPDATE 
+app.post('/menuItems/update/:id', (req, res) => {
+    const { name, price, category } = req.body;
+    const menuItemId = req.params.id;
+    db.pool.query(
+        'UPDATE MenuItems SET name=?, price=?, category=? WHERE menuItemId=?', 
+        [name, price, category, menuItemId],
+        (err) => {
+            if (err) throw err;
+            res.redirect('/menuItems');
+        }
+    );
+});
+
+// DELETE
+app.post('/menuItems/delete/:id', (req, res) => {
+    const menuItemId = req.params.id;
+    db.pool.query(
+        'DELETE FROM MenuItems WHERE menuItemId=?', 
+        [menuItemId],
+        (err) => {
+            if (err) throw err;
+            res.redirect('/menuItems');
+        }
+    );
+});
 
 //Route for the orders table~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.get('/orders', (req, res) => {
@@ -137,9 +179,9 @@ app.get('/orders', (req, res) => {
 
 //CREATE - Add a new reservation
 app.post('/orders/add', (req, res) => {
-    const  { customerId, catId, date, durationMinutes, guestCount } = req.body;
-    db.pool.query('INSERT INTO Orders (customerId, catId, date, durationMinutes, guestCount ) VALUES (?, ?, ?, ?, ?)', 
-        [customerId, catId, date, durationMinutes, guestCount ], (err) => {
+    const  { customerId, orderTime, orderTotal } = req.body;
+    db.pool.query('INSERT INTO Orders (customerId, orderTime, orderTotal ) VALUES (?, ?, ?)', 
+        [customerId, orderTime, orderTotal  ], (err) => {
         if (err) throw err;
         res.redirect('/orders');
     });
@@ -147,10 +189,10 @@ app.post('/orders/add', (req, res) => {
 
 //UPDATE - Modify an existing reservation
 app.post('/orders/update/:id', (req, res) => {
-    const {customerId, catId, date, durationMinutes, guestCount } = req.body;
+    const {customerId, orderTime, orderTotal  } = req.body;
     const orderId = req.params.id;
-    db.pool.query('UPDATE Orders SET customerId=?, catId=?, date=?, durationMinutes=?, guestCount=? WHERE reservationId=?', 
-        [customerId, catId, date, durationMinutes, guestCount, reservationId ], (err) => {
+    db.pool.query('UPDATE Orders SET customerId=?, orderTime=?, orderTotal=? WHERE orderId=?', 
+        [customerId, orderTime, orderTotal  ], (err) => {
         if (err) throw err;
         res.redirect('/orders');
     });
