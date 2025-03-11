@@ -198,6 +198,19 @@ app.post('/orders/update/:id', (req, res) => {
     });
 });
 
+// DELETE
+app.post('/orders/delete/:id', (req, res) => {
+    const orderId = req.params.id;
+    db.pool.query(
+        'DELETE FROM Orders WHERE orderId=?', 
+        [orderId],
+        (err) => {
+            if (err) throw err;
+            res.redirect('/orders');
+        }
+    );
+});
+
 //Route for the reservations table~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.get('/reservations', (req, res) => {
     db.pool.query('SELECT * FROM Reservations', (err, results) => {
@@ -288,8 +301,55 @@ app.post('/reservationcats/delete', (req, res) => {
 });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Route for the menu items table
-app.get('/orderMenuItems', function(req, res) {
-    res.render('orderMenuItems'); 
+
+app.get('/orderMenuItems', (req, res) => {
+    const query = "SELECT * FROM OrderMenuItems";
+    db.pool.query(query, (error, results) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error retrieving OrderMenuItems data.");
+        }
+        res.render('orderMenuItems', { orderMenuItems: results });
+    });
+});
+
+// Route to Add a New Reservation-Cat Relationship
+app.post('/orderMenuItems/add', (req, res) => {
+    const { orderId, menuItemId } = req.body;
+    const query = "INSERT INTO OrderMenuItems (orderId, menuItemId ) VALUES (?, ?)";
+    db.pool.query(query, [orderId, menuItemId], (error) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error inserting OrderMenuItems record.");
+        }
+        res.redirect('/orderMenuItems');
+    });
+});
+
+// Route to Update an Existing Reservation-Cat Relationship
+app.post('/orderMenuItems/update', (req, res) => {
+    const { orderId, menuItemId, newMenuItemId} = req.body;
+    const query = "UPDATE OrderMenuItems SET catId = ? WHERE orderId= ? AND menuItemId  = ?";
+    db.pool.query(query, [newMenuItemId, orderId, menuItemId], (error) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error updating OrderMenuItems record.");
+        }
+        res.redirect('/orderMenuItems');
+    });
+});
+
+// Route to Delete a Reservation-Cat Relationship
+app.post('/orderMenuItems/delete', (req, res) => {
+    const { orderId, menuItemId } = req.body;
+    const query = "DELETE FROM OrderMenuItems WHERE orderId = ? AND menuItemId = ?";
+    db.pool.query(query, [orderId, menuItemId], (error) => {
+        if (error) {
+            console.error(error);
+            return res.status(500).send("Error deleting OrderMenuItems record.");
+        }
+        res.redirect('/orderMenuItems');
+    });
 });
 
 //Listener to start the server

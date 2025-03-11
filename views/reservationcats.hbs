@@ -19,7 +19,6 @@
         <div class="entity-modal-overlay hidden" id="create-overlay">
             <div class="entity-modal" id="create_modal">
                 <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
-                <h3>Assign a Cat to a Reservation</h3>
                     <form class="entity-attribute-selection" action="/reservationcats/add" method="POST">
                         <div class="attribute-field">
                             <label for='catId'>Cat ID:</label>
@@ -31,7 +30,7 @@
                             <input type='text' id='reservationId' name='reservationId' value="{{this.reservationId}}" required>
                         </div>
 
-                        <button type='submit' id="submit_button">Assign cat</button>
+                        <button type='submit' id="submit_button">Assign a Cat to a Reservation</button>
                     </form>
             </div>
         </div>

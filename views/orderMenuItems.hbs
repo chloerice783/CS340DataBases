@@ -11,21 +11,72 @@
         <h1>Manage Order-Menu Item</h1>
         {{> navbar}}
         </header>
-        <h2>Assign a Menu Item to an Order</h2>
-        <form>
-            <label for="orderId">Order ID:</label>
-            <input type="text" id="orderId" name="orderId" required>
-            <label for="menuItemId">Menu Item ID:</label>
-            <input type="text" id="menuItemId" name="menuItemId" required>
-            <button type="submit">Assign Menu Item</button>
-        </form>
-        
-        <h2>Assigned Menu Items</h2>
-        <table border="1">
-            <tr>
-                <th>Order ID</th>
-                <th>Menu Item ID</th>
-            </tr>
-        </table>
+
+
+
+        <div class="table-buttons">
+            <button type='button' class="table_button" id="add_button">Assign an order to a menu item</button>
+        </div>
+
+                
+        <div class="entity-modal-overlay hidden" id="create-overlay">
+            <div class="entity-modal" id="create_modal">
+                <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
+                    <form class="entity-attribute-selection" action="/orderMenuItems/add" method="POST">
+                        <div class="attribute-field">
+                            <label for="orderId">Order ID:</label>
+                            <input type="text" id="orderId" name="orderId" value="{{this.orderId}}" required>
+                        </div>
+
+                        <div class="attribute-field">
+                            <label for="menuItemId">Menu Item ID:</label>
+                            <input type="text" id="menuItem" name="menuItemId" value="{{this.menuItemId}}" required>
+                        </div>
+
+                         <div class="attribute-field">
+                            <label for="menuItemId">Quantity:</label>
+                            <input type="number" id="quantity" name="quantity" value="{{this.quantity}}" required>
+                        </div>
+
+                        <button type='submit' id="submit_button">Assign an order to a menu item</button>
+                    </form>
+            </div>
+        </div>
+
+        <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Menu Item ID</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+        {{#each orderMenuItems}}
+        <tr>
+            <td>{{this.orderId}}</td>
+            <td>{{this.menuItemId}}</td>
+            <td>{{this.quantity}}</td>
+            <td>
+                <!-- Update Form -->
+                <form action="/orderMenuItems/update" method="POST" style="display:inline;">
+                    <input type="hidden" name="orderId" value="{{this.orderId}}">
+                    <input type="hidden" name="menuItemId" value="{{this.menuItemId}}">
+                    <input type="hidden" name="quantity" value="{{this.quantity}}">
+                    <label for="newMenuItemId">New Menu Item ID:</label>
+                    <input type="number" name="newMenuItemId" required>
+                    <button type="submit" class="table_button" >Update</button>
+                </form>
+
+                <!-- Delete Button -->
+                <form action="/orderMenuItems/delete" method="POST" style="display:inline;">
+                    <input type="hidden" name="orderId" value="{{this.orderId}}">
+                    <input type="hidden" name="menuItemId" value="{{this.menuItemId}}">
+                    <input type="hidden" name="quantity" value="{{this.quantity}}">
+                    <button type="submit" onclick="return confirm('Are you sure?');"  class="table_button" >Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+         </table>
+    <script src="index.js"></script>
     </body>
 </html>
