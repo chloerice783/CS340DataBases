@@ -392,7 +392,7 @@ app.get('/orderMenuItems', (req, res) => {
         SELECT OrderMenuItems.*
         FROM OrderMenuItems
         LEFT JOIN Orders ON OrderMenuItems.orderId = Orders.orderId
-        LEFT JOIN MenuItems ON MenuItems.MenuItemId = OrderMenuItems.MenuItemId
+        LEFT JOIN MenuItems ON MenuItems.menuItemId = OrderMenuItems.menuItemId
     `;
 
     const menuItemsQuery = 'SELECT * FROM MenuItems';
@@ -455,10 +455,11 @@ app.post('/orderMenuItems/add', (req, res) => {
 });
 
 // Route to Update an Existing Reservation-Cat Relationship
-app.post('/orderMenuItems/update', (req, res) => {
-    const { orderId, menuItemId, newMenuItemId} = req.body;
-    const query = "UPDATE OrderMenuItems SET catId = ? WHERE orderId= ? AND menuItemId  = ?";
-    db.pool.query(query, [newMenuItemId, orderId, menuItemId], (error) => {
+app.post('/orderMenuItems/update/:id', (req, res) => {
+    const orderMenuItemId = req.params.id;
+    const { menuItemId} = req.body;
+    const query = "UPDATE OrderMenuItems SET menuItemId = ? WHERE orderMenuItemId= ? ";
+    db.pool.query(query, [menuItemId, orderMenuItemId], (error) => {
         if (error) {
             console.error(error);
             return res.status(500).send("Error updating OrderMenuItems record.");

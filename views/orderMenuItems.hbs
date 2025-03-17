@@ -25,19 +25,21 @@
                     <form class="entity-attribute-selection" action="/orderMenuItems/add" method="POST">
                         <div class="attribute-field">
                             <label for="orderId">Order ID:</label>
-                                <option value="{{this.ordersId}}" selected></option>
+                            <select id="orderId" name="orderId" required>
+                                <option value="{{this.orderId}}" selected></option>
                                 {{#each orders}}
-                                    <option value="{{this.ordersId}}">{{this.ordersId}}</option>
+                                    <option value="{{this.orderId}}">{{this.orderId}}</option>
                                 {{/each}}
+                            </select>
                         </div>
 
                         <div class="attribute-field">
                             <label for="menuItemId">Menu Item ID:</label>
                                 <select id="menuItemId" name="menuItemId" required>
                                     <!-- Select the current customerId as the default option -->
-                                    <option value="{{this.menuItemsId}}" selected></option>
+                                    <option value="{{this.menuItemId}}" selected></option>
                                     {{#each menuItems}}
-                                        <option value="{{this.menuItemsId}}">{{this.menuItemId}} ({{this.name}})</option>
+                                        <option value="{{this.menuItemId}}">{{this.menuItemId}} ({{this.name}})</option>
                                     {{/each}}
                                 </select>
                         </div>
@@ -66,12 +68,16 @@
             <td>{{this.quantity}}</td>
             <td>
                 <!-- Update Form -->
-                <form action="/orderMenuItems/update" method="POST" style="display:inline;">
+                <form action="/orderMenuItems/update/{{this.orderMenuItemId}}" method="POST" style="display:inline;">
                     <input type="hidden" name="orderId" value="{{this.orderId}}">
-                    <input type="hidden" name="menuItemId" value="{{this.menuItemId}}">
                     <input type="hidden" name="quantity" value="{{this.quantity}}">
-                    <label for="newMenuItemId">New Menu Item ID:</label>
-                    <input type="number" name="newMenuItemId" required>
+                    <label for="menuItemId">New Menu Item ID:</label>
+                    <select id="menuItemId" name="menuItemId" required>
+                        <!-- Select the current customerId as the default option -->
+                        {{#each ../menuItems}}
+                            <option value="{{this.menuItemId}}">{{this.menuItemId}} ({{this.name}})</option>
+                        {{/each}}
+                    </select>
                     <button type="submit" class="table_button" >Update</button>
                 </form>
 
