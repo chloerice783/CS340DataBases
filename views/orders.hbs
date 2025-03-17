@@ -34,7 +34,14 @@
                     <div class="update-delete-section">
                         <!-- Update Form -->
                         <form action="/orders/update/{{this.orderId}}" method="POST">
-                            <input type="text" name="customerId" value="{{this.customerId}}" required>
+                            <span>Customer name/Id: </span>
+                            <select id="customerId" name="customerId" required>
+                                <!-- Select the current customerId as the default option -->
+                                <option value="{{this.customerId}}" selected>{{this.customerId}} ({{this.customerName}})</option>
+                                {{#each ../customers}}
+                                    <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
+                                {{/each}}
+                            </select>
                             <input type="datetime-local" name="orderTime" value="{{this.orderTime}}" required>
                             <input type="text" name="orderTotal" value="{{this.orderTotal}}" required>
                             <button type="submit" class="table_button">Update</button>
@@ -63,7 +70,13 @@
             <form class="entity-attribute-selection" action="/orders/add" method="POST">
                 <div class="attribute-field">
                     <label for='orderCustomerId'>Customer ID:</label>
-                    <input type='number' id='orderCustomerId' name='customerId' required>
+                    <select id="customerId" name="customerId" required>
+                        <!-- Select the current customerId as the default option -->
+                        <option value="{{this.customerId}}" selected></option>
+                        {{#each customers}}
+                            <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
+                        {{/each}}
+                    </select>
                 </div>
 
                 <div class="attribute-field">

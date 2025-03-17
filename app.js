@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+
 const hbs = exphbs.create({
 
     partialsDir: path.join(__dirname, 'views/partials') //Tell Handlebars where to find partials
@@ -171,10 +172,47 @@ app.post('/menuItems/delete/:id', (req, res) => {
 
 //Route for the orders table~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.get('/orders', (req, res) => {
-    db.pool.query('SELECT * FROM Orders', (err, results) => {
-        if (err) throw err;
-        res.render('orders', { orders: results });
+    const ordersQuery = `
+        SELECT Orders.*, Customers.name as customerName
+        FROM Orders
+        LEFT JOIN Customers ON Orders.customerId = Customers.customerId
+    `;
+
+    const customersQuery = 'SELECT * FROM Customers';
+
+    //Run all queries using promise 
+    const ordersPromise = new Promise((resolve, reject) => {
+        db.pool.query(ordersQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
     });
+
+    const customersPromise = new Promise((resolve, reject) => {
+        db.pool.query(customersQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+    //Wait for all queries to complete and render the page
+    Promise.all([ordersPromise, customersPromise])
+        .then(([orders, customers]) => {
+            //Log data to see if it's correctly retrieved
+            console.log('orders:', orders);
+            console.log('Customers:', customers);
+                    
+
+            //Render data as separate tables
+            res.render('orders', {
+                orders,
+                customers
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error fetching data");
+        });
 });
 
 //CREATE - Add a new reservation
@@ -192,7 +230,7 @@ app.post('/orders/update/:id', (req, res) => {
     const {customerId, orderTime, orderTotal  } = req.body;
     const orderId = req.params.id;
     db.pool.query('UPDATE Orders SET customerId=?, orderTime=?, orderTotal=? WHERE orderId=?', 
-        [customerId, orderTime, orderTotal  ], (err) => {
+        [ orderId, customerId, orderTime, orderTotal  ], (err) => {
         if (err) throw err;
         res.redirect('/orders');
     });
@@ -223,7 +261,7 @@ app.get('/reservations', (req, res) => {
     const customersQuery = 'SELECT * FROM Customers';
     const catsQuery = 'SELECT * FROM Cats';
 
-    //Run all queries in parallel using Promise.all
+    //Run all queries using promise 
     const reservationsPromise = new Promise((resolve, reject) => {
         db.pool.query(reservationsQuery, (err, results) => {
             if (err) return reject(err);
@@ -349,16 +387,58 @@ app.post('/reservationcats/delete', (req, res) => {
 });
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //Route for the menu items table
-
 app.get('/orderMenuItems', (req, res) => {
-    const query = "SELECT * FROM OrderMenuItems";
-    db.pool.query(query, (error, results) => {
-        if (error) {
-            console.error(error);
-            return res.status(500).send("Error retrieving OrderMenuItems data.");
-        }
-        res.render('orderMenuItems', { orderMenuItems: results });
+    const orderMenuItemsQuery = `
+        SELECT OrderMenuItems.*
+        FROM OrderMenuItems
+        LEFT JOIN Orders ON OrderMenuItems.orderId = Orders.orderId
+        LEFT JOIN MenuItems ON MenuItems.MenuItemId = OrderMenuItems.MenuItemId
+    `;
+
+    const menuItemsQuery = 'SELECT * FROM MenuItems';
+    const ordersQuery = 'SELECT * FROM Orders';
+
+    //Run all queries using promise 
+    const orderMenuItemsPromise = new Promise((resolve, reject) => {
+        db.pool.query(orderMenuItemsQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
     });
+
+    const ordersPromise = new Promise((resolve, reject) => {
+        db.pool.query(ordersQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+    const menuItemsPromise = new Promise((resolve, reject) => {
+        db.pool.query(menuItemsQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+
+    //Wait for all queries to complete and render the page
+    Promise.all([ordersPromise, menuItemsPromise, orderMenuItemsPromise])
+        .then(([orders, menuItems, orderMenuItems]) => {
+            //Log data to see if it's correctly retrieved
+            console.log('menuItems:', menuItems);
+            console.log('orderMenuItems:', orders);
+
+            //Render data as separate tables
+            res.render('orderMenuItems', {
+                orderMenuItems,
+                orders,
+                menuItems
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error fetching data");
+        });
 });
 
 // Route to Add a New Reservation-Cat Relationship

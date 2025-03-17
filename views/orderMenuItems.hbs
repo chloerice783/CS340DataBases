@@ -25,12 +25,21 @@
                     <form class="entity-attribute-selection" action="/orderMenuItems/add" method="POST">
                         <div class="attribute-field">
                             <label for="orderId">Order ID:</label>
-                            <input type="text" id="orderId" name="orderId" value="{{this.orderId}}" required>
+                                <option value="{{this.ordersId}}" selected></option>
+                                {{#each orders}}
+                                    <option value="{{this.ordersId}}">{{this.ordersId}}</option>
+                                {{/each}}
                         </div>
 
                         <div class="attribute-field">
                             <label for="menuItemId">Menu Item ID:</label>
-                            <input type="text" id="menuItem" name="menuItemId" value="{{this.menuItemId}}" required>
+                                <select id="menuItemId" name="menuItemId" required>
+                                    <!-- Select the current customerId as the default option -->
+                                    <option value="{{this.menuItemsId}}" selected></option>
+                                    {{#each menuItems}}
+                                        <option value="{{this.menuItemsId}}">{{this.menuItemId}} ({{this.name}})</option>
+                                    {{/each}}
+                                </select>
                         </div>
 
                          <div class="attribute-field">

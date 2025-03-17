@@ -16,16 +16,6 @@
                 <button type='button' class="table_button" id="add_button">Add reservation</button>
         </div>
 
-        <div>
-            <select id="catId" name="catId" required>
-                <option value="">{{this.catId}} ({{this.name}})</option>
-                {{#each cats}}
-                    <option value="">{{this.catId}} ({{this.name}})</option>
-                {{/each}}
-            </select>
-        </div>
-
-
         <table class="reservations-table">
         <tr>
             <th>Reservation ID</th>
@@ -47,32 +37,37 @@
             <td>{{this.guestCount}}</td>
             <td>
                 <div class="update-delete-section">
-                    <!-- Update Form -->
-                    <form action="/reservations/update/{{this.reservationId}}" method="POST" >
-                         <span>Customer name/Id: </span> 
-                        <select id="customerId" name="customerId" required>
-                            {{#each ../customers}}
-                                <option value="customer">{{this.customerId}} ({{this.name}})</option>
-                            {{/each}}
-                        </select>
+                        <!-- Update Form -->
+                        <form action="/reservations/update/{{this.reservationId}}" method="POST">
+                            <span>Customer name/Id: </span>
+                            <select id="customerId" name="customerId" required>
+                                <!-- Select the current customerId as the default option -->
+                                <option value="{{this.customerId}}" selected>{{this.customerId}} ({{this.customerName}})</option>
+                                {{#each ../customers}}
+                                    <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
+                                {{/each}}
+                            </select>
 
-                        <span>Cat name/Id: </span>
-                        <select id="catId" name="catId" required>
-                            {{#each ../cats}}
-                                <option value="cat">{{this.catId}} ({{this.name}})</option>
-                            {{/each}}
-                        </select>
-                        <span>Date/Time: </span><input type="datetime-local" name="date" value="{{this.date}}" required>
-                        <span>Duration (mins): </span><input type="number" name="durationMinutes"  min="1" value="{{this.durationMinutes}}" required>
-                        <span>Guest Count: </span> <input type="number" name="guestCount"  min="1" value="{{this.guestCount}}" required>
-                        <button type="submit" class="table_button" >Update</button>
-                    </form>
-                    
-                    <!-- Delete Button -->
-                    <form action="/customers/delete/{{this.catId}}" method="POST">
-                        <button type="submit" class="table_button" >Delete</button>
-                    </form>
-                </div>
+                            <span>Cat name/Id: </span>
+                            <select id="catId" name="catId" required>
+                                <!-- Select the current catId as the default option -->
+                                <option value="{{this.catId}}" selected>{{this.catId}} ({{this.catName}})</option>
+                                {{#each ../cats}}
+                                    <option value="{{this.catId}}">{{this.catId}} ({{this.name}})</option>
+                                {{/each}}
+                            </select>
+
+                            <span>Date/Time: </span><input type="datetime-local" name="date" value="{{this.date}}" required>
+                            <span>Duration (mins): </span><input type="number" name="durationMinutes" min="1" value="{{this.durationMinutes}}" required>
+                            <span>Guest Count: </span> <input type="number" name="guestCount" min="1" value="{{this.guestCount}}" required>
+                            <button type="submit" class="table_button">Update</button>
+                        </form>
+
+                        <!-- Delete Button -->
+                        <form action="/customers/delete/{{this.catId}}" method="POST">
+                            <button type="submit" class="table_button">Delete</button>
+                        </form>
+                    </div>
             </td>
         </tr>
         {{/each}}
@@ -86,12 +81,25 @@
                 <form action="/reservations/add" method="POST" class="entity-attribute-selection">
                     <div class="attribute-field">
                         <label for='customerId'>Customer ID:</label>
-                        <input type='number' id='customerId' name='customerId' value="{{this.customerId}}" required>
+                            <select id="customerId" name="customerId" required>
+                                <!-- Select the current customerId as the default option -->
+                                <option value="{{this.customerId}}" selected></option>
+                                {{#each customers}}
+                                    <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
+                                {{/each}}
+                            </select>
                     </div>
 
                     <div class="attribute-field">
                         <label for='catId'>Cat ID:</label>
-                        <input type='number' id='catId' name='catId'  value="{{this.catId}}" required>
+                            <select id="catId" name="catId" required>
+                                <!-- Select the current catId as the default option -->
+                                <option value="{{this.catId}}" selected></option>
+                                {{#each cats}}
+                                    <option value="{{this.catId}}">{{this.catId}} ({{this.name}})</option>
+                                {{/each}}
+                            </select>
+
                     </div>
 
                     <div class="attribute-field">
