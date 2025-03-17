@@ -40,9 +40,13 @@
                     <div class="update-delete-section">
                         <!-- Update Form -->
                         <form action="/cats/update/{{this.catId}}" method="POST" >
+                            <span>Name: </span>
                             <input type="text" name="name" value="{{this.name}}" required>
+                            <span>Age: </span>
                             <input type="number" name="age" value="{{this.age}}" required>
+                            <span>Breed: </span>
                             <input type="text" name="breed" value="{{this.breed}}" required>
+                            <span>Status: </span>
                             <input type="text" name="status" value="{{this.status}}" required>
                             <button type="submit" class="table_button" >Update</button>
                         </form>

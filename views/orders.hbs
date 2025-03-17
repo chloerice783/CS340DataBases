@@ -42,7 +42,9 @@
                                     <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
                                 {{/each}}
                             </select>
+                            <span>Date/Time: </span>
                             <input type="datetime-local" name="orderTime" value="{{this.orderTime}}" required>
+                            <span>Total Cost: </span>
                             <input type="text" name="orderTotal" value="{{this.orderTotal}}" required>
                             <button type="submit" class="table_button">Update</button>
                         </form>

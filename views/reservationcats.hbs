@@ -22,12 +22,20 @@
                     <form class="entity-attribute-selection" action="/reservationcats/add" method="POST">
                         <div class="attribute-field">
                             <label for='catId'>Cat ID:</label>
-                            <input type='text' id='catId' name='catId' value="{{this.catId}}" required>
+                            <select id="catId" name="catId" required>
+                                {{#each cats}}
+                                    <option value="{{this.catId}}">{{this.catId}} ({{this.name}})</option>
+                                {{/each}}
+                            </select>
                         </div>
 
                         <div class="attribute-field">
                             <label for='reservationId'>Reservation ID:</label>
-                            <input type='text' id='reservationId' name='reservationId' value="{{this.reservationId}}" required>
+                            <select id="reservationId" name="reservationId" required>
+                                {{#each reservations}}
+                                    <option value="{{this.reservationId}}">{{this.reservationId}}</option>
+                                {{/each}}
+                            </select>
                         </div>
 
                         <button type='submit' id="submit_button">Assign a Cat to a Reservation</button>
@@ -41,17 +49,20 @@
             <th>Cat ID</th>
             <th>Actions</th>
         </tr>
-        {{#each reservationcats}}
+        {{#each reservationCats}}
         <tr>
             <td>{{this.reservationId}}</td>
             <td>{{this.catId}}</td>
             <td>
                 <!-- Update Form -->
-                <form action="/reservationcats/update" method="POST" style="display:inline;">
+                <form action="/reservationcats/update/{{this.reservationCatId}}" method="POST" style="display:inline;">
                     <input type="hidden" name="reservationId" value="{{this.reservationId}}">
-                    <input type="hidden" name="catId" value="{{this.catId}}">
-                    <label for="newCatId">New Cat ID:</label>
-                    <input type="number" name="newCatId" required>
+                    <label for="catId">New Cat ID:</label>
+                    <select id="catId" name="catId" required>
+                        {{#each ../cats}}
+                            <option value="{{this.catId}}">{{this.catId}} ({{this.name}})</option>
+                        {{/each}}
+                    </select>
                     <button type="submit" class="table_button" >Update</button>
                 </form>
 

@@ -37,8 +37,11 @@
                     <div class="update-delete-section">
                         <!-- Update Form -->
                         <form action="/customers/update/{{this.customerId}}" method="POST" >
+                            <span>Name: </span>
                             <input type="text" name="name" value="{{this.name}}" required>
+                            <span>Phone Number: </span>
                             <input type="text" name="phoneNumber" value="{{this.phoneNumber}}" required>
+                            <span>Email: </span>
                             <input type="email" name="email" value="{{this.email}}" required>
                             <button type="submit" class="table_button" >Update</button>
                         </form>

@@ -336,16 +336,60 @@ app.post('/reservations/delete/:id', (req, res) => {
 });
 
 //Route to Display ReservationCats Data~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 app.get('/reservationcats', (req, res) => {
-    const query = "SELECT * FROM ReservationCats";
-    db.pool.query(query, (error, results) => {
-        if (error) {
-            console.error(error);
-            return res.status(500).send("Error retrieving ReservationCats data.");
-        }
-        res.render('reservationcats', { reservationcats: results });
+    const ReservationCatsQuery = `
+        SELECT ReservationCats.*
+        FROM ReservationCats
+        LEFT JOIN Reservations ON ReservationCats.reservationId = Reservations.reservationId
+        LEFT JOIN Cats ON Cats.catId = ReservationCats.catId
+    `;
+
+    const catsQuery = 'SELECT * FROM Cats';
+    const reservationsQuery = 'SELECT * FROM Reservations';
+
+    //Run all queries using promise 
+    const reservationCatsPromise = new Promise((resolve, reject) => {
+        db.pool.query(ReservationCatsQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
     });
+
+    const catsPromise = new Promise((resolve, reject) => {
+        db.pool.query(catsQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+    const reservationsPromise = new Promise((resolve, reject) => {
+        db.pool.query(reservationsQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+
+    //Wait for all queries to complete and render the page
+    Promise.all([catsPromise, reservationsPromise, reservationCatsPromise])
+        .then(([cats, reservations, reservationCats]) => {
+
+            //Render data as separate tables
+            res.render('reservationCats', {
+                reservationCats,
+                cats,
+                reservations
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error fetching data");
+        });
 });
+
+
 
 // Route to Add a New Reservation-Cat Relationship
 app.post('/reservationcats/add', (req, res) => {
@@ -361,10 +405,12 @@ app.post('/reservationcats/add', (req, res) => {
 });
 
 // Route to Update an Existing Reservation-Cat Relationship
-app.post('/reservationcats/update', (req, res) => {
-    const { reservationId, catId, newCatId } = req.body;
-    const query = "UPDATE ReservationCats SET catId = ? WHERE reservationId = ? AND catId = ?";
-    db.pool.query(query, [newCatId, reservationId, catId], (error) => {
+app.post('/reservationcats/update/:id', (req, res) => {
+    const reservationCatId = req.params.id;
+    const { catId} = req.body;
+
+    const query = "UPDATE ReservationCats SET catId = ? WHERE reservationCatId = ?";
+    db.pool.query(query, [catId, reservationCatId], (error) => {
         if (error) {
             console.error(error);
             return res.status(500).send("Error updating ReservationCats record.");
