@@ -340,7 +340,7 @@ app.post('/reservations/delete/:id', (req, res) => {
 
 app.get('/reservationcats', (req, res) => {
     const ReservationCatsQuery = `
-        SELECT ReservationCats.*
+        SELECT ReservationCats.*, Cats.name AS catName
         FROM ReservationCats
         LEFT JOIN Reservations ON ReservationCats.reservationId = Reservations.reservationId
         LEFT JOIN Cats ON Cats.catId = ReservationCats.catId
@@ -435,7 +435,7 @@ app.post('/reservationcats/delete', (req, res) => {
 //Route for the menu items table
 app.get('/orderMenuItems', (req, res) => {
     const orderMenuItemsQuery = `
-        SELECT OrderMenuItems.*
+        SELECT OrderMenuItems.*, MenuItems.name AS menuItemName
         FROM OrderMenuItems
         LEFT JOIN Orders ON OrderMenuItems.orderId = Orders.orderId
         LEFT JOIN MenuItems ON MenuItems.menuItemId = OrderMenuItems.menuItemId

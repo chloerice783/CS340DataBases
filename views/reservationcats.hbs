@@ -52,7 +52,7 @@
         {{#each reservationCats}}
         <tr>
             <td>{{this.reservationId}}</td>
-            <td>{{this.catId}}</td>
+            <td>{{this.catId}} ({{this.catName}})</td>
             <td>
                 <!-- Update Form -->
                 <form action="/reservationcats/update/{{this.reservationCatId}}" method="POST" style="display:inline;">
