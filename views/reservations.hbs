@@ -16,6 +16,16 @@
                 <button type='button' class="table_button" id="add_button">Add reservation</button>
         </div>
 
+        <div>
+            <select id="catId" name="catId" required>
+                <option value="">{{this.catId}} ({{this.name}})</option>
+                {{#each cats}}
+                    <option value="">{{this.catId}} ({{this.name}})</option>
+                {{/each}}
+            </select>
+        </div>
+
+
         <table class="reservations-table">
         <tr>
             <th>Reservation ID</th>
@@ -28,6 +38,7 @@
         </tr>
         {{#each reservations}}
         <tr>
+
             <td>{{this.reservationId}}</td>
             <td>{{this.customerId}} ({{this.customerName}})</td>
             <td>{{this.catId}}</td>
@@ -40,13 +51,17 @@
                     <form action="/reservations/update/{{this.reservationId}}" method="POST" >
                          <span>Customer name/Id: </span> 
                         <select id="customerId" name="customerId" required>
-                            <option value="">{{this.customerId}} ({{this.customerName}})</option>
-                            {{#each customers}}
-                                <option value="{{this.customerId}}">{{this.name}}</option>
+                            {{#each ../customers}}
+                                <option value="customer">{{this.customerId}} ({{this.name}})</option>
                             {{/each}}
                         </select>
 
-                        <span>Cat name/Id: </span><input type="number" name="catId" value="{{this.catId}}" required>
+                        <span>Cat name/Id: </span>
+                        <select id="catId" name="catId" required>
+                            {{#each ../cats}}
+                                <option value="cat">{{this.catId}} ({{this.name}})</option>
+                            {{/each}}
+                        </select>
                         <span>Date/Time: </span><input type="datetime-local" name="date" value="{{this.date}}" required>
                         <span>Duration (mins): </span><input type="number" name="durationMinutes"  min="1" value="{{this.durationMinutes}}" required>
                         <span>Guest Count: </span> <input type="number" name="guestCount"  min="1" value="{{this.guestCount}}" required>

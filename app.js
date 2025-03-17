@@ -223,29 +223,50 @@ app.get('/reservations', (req, res) => {
     const customersQuery = 'SELECT * FROM Customers';
     const catsQuery = 'SELECT * FROM Cats';
 
-    db.pool.query(reservationsQuery, (err, reservations) => {
-        if (err) {
-            console.error(err);
-            return res.status(500).send("Database query error");
-        }
-
-        db.pool.query(customersQuery, (err, customers) => {
-            if (err) {
-                console.error(err);
-                return res.status(500).send("Database query error");
-            }
-
-            db.pool.query(catsQuery, (err, cats) => {
-                if (err) {
-                    console.error(err);
-                    return res.status(500).send("Database query error");
-                }
-
-                res.render('reservations', { reservations, customers, cats });
-            });
+    //Run all queries in parallel using Promise.all
+    const reservationsPromise = new Promise((resolve, reject) => {
+        db.pool.query(reservationsQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
         });
     });
+
+    const customersPromise = new Promise((resolve, reject) => {
+        db.pool.query(customersQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+    const catsPromise = new Promise((resolve, reject) => {
+        db.pool.query(catsQuery, (err, results) => {
+            if (err) return reject(err);
+            resolve(results);
+        });
+    });
+
+    //Wait for all queries to complete and render the page
+    Promise.all([reservationsPromise, customersPromise, catsPromise])
+        .then(([reservations, customers, cats]) => {
+            //Log data to see if it's correctly retrieved
+            console.log('Reservations:', reservations);
+            console.log('Customers:', customers);
+            console.log('Cats:', cats);
+
+            //Render data as separate tables
+            res.render('reservations', {
+                cats,
+                reservations,
+                customers
+            });
+        })
+        .catch((error) => {
+            console.error(error);
+            res.status(500).send("Error fetching data");
+        });
 });
+
+
 //CREATE - Add a new reservation
 app.post('/reservations/add', (req, res) => {
     const  { customerId, catId, date, durationMinutes, guestCount } = req.body;
