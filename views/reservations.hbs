@@ -29,7 +29,7 @@
         {{#each reservations}}
         <tr>
             <td>{{this.reservationId}}</td>
-            <td>{{this.customerId}}</td>
+            <td>{{this.customerId}} ({{this.customerName}})</td>
             <td>{{this.catId}}</td>
             <td>{{this.date}}</td>
             <td>{{this.durationMinutes}}</td>
@@ -38,11 +38,18 @@
                 <div class="update-delete-section">
                     <!-- Update Form -->
                     <form action="/reservations/update/{{this.reservationId}}" method="POST" >
-                        <input type="number" name="customerId" value="{{this.customerId}}" required>
-                        <input type="number" name="catId" value="{{this.catId}}" required>
-                        <input type="datetime-local" name="date" value="{{this.date}}" required>
-                        <input type="number" name="durationMinutes" value="{{this.durationMinutes}}" required>
-                        <input type="number" name="guestCount" value="{{this.guestCount}}" required>
+                         <span>Customer name/Id: </span> 
+                        <select id="customerId" name="customerId" required>
+                            <option value="">{{this.customerId}} ({{this.customerName}})</option>
+                            {{#each customers}}
+                                <option value="{{this.customerId}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+
+                        <span>Cat name/Id: </span><input type="number" name="catId" value="{{this.catId}}" required>
+                        <span>Date/Time: </span><input type="datetime-local" name="date" value="{{this.date}}" required>
+                        <span>Duration (mins): </span><input type="number" name="durationMinutes"  min="1" value="{{this.durationMinutes}}" required>
+                        <span>Guest Count: </span> <input type="number" name="guestCount"  min="1" value="{{this.guestCount}}" required>
                         <button type="submit" class="table_button" >Update</button>
                     </form>
                     

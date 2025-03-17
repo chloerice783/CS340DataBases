@@ -213,12 +213,39 @@ app.post('/orders/delete/:id', (req, res) => {
 
 //Route for the reservations table~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 app.get('/reservations', (req, res) => {
-    db.pool.query('SELECT * FROM Reservations', (err, results) => {
-        if (err) throw err;
-        res.render('reservations', { reservations: results });
+    const reservationsQuery = `
+        SELECT Reservations.*, Cats.name AS catName, Customers.name AS customerName
+        FROM Reservations
+        LEFT JOIN Cats ON Reservations.catId = Cats.catId
+        LEFT JOIN Customers ON Reservations.customerId = Customers.customerId
+    `;
+
+    const customersQuery = 'SELECT * FROM Customers';
+    const catsQuery = 'SELECT * FROM Cats';
+
+    db.pool.query(reservationsQuery, (err, reservations) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send("Database query error");
+        }
+
+        db.pool.query(customersQuery, (err, customers) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send("Database query error");
+            }
+
+            db.pool.query(catsQuery, (err, cats) => {
+                if (err) {
+                    console.error(err);
+                    return res.status(500).send("Database query error");
+                }
+
+                res.render('reservations', { reservations, customers, cats });
+            });
+        });
     });
 });
-
 //CREATE - Add a new reservation
 app.post('/reservations/add', (req, res) => {
     const  { customerId, catId, date, durationMinutes, guestCount } = req.body;
