@@ -36,7 +36,6 @@
                         <form action="/orders/update/{{this.orderId}}" method="POST">
                             <span>Customer name/Id: </span>
                             <select id="customerId" name="customerId" required>
-                                <!-- Select the current customerId as the default option -->
                                 <option value="{{this.customerId}}" selected>{{this.customerId}} ({{this.customerName}})</option>
                                 {{#each ../customers}}
                                     <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
@@ -48,11 +47,10 @@
                             <input type="text" name="orderTotal" value="{{this.orderTotal}}" required>
                             <button type="submit" class="table_button">Update</button>
                         </form>
-                                                <!-- Delete Button -->
+                        <!-- Delete Button -->
                         <form action="/orders/delete/{{this.orderId}}" method="POST">
                             <button type="submit" class="table_button" >Delete</button>
                         </form>
-                        <!-- You can add a similar Delete Form here if needed -->
                     </div>
                 </td>
 

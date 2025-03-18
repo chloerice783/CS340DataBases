@@ -12,10 +12,13 @@
             {{> navbar}}
         </header>
 
+         <!-- Button for adding an entity -->
         <div class="table-buttons">
                 <button type='button' class="table_button" id="add_button">Add reservation</button>
         </div>
 
+    
+         <!-- Tables for reservations -->
         <table class="reservations-table">
         <tr>
             <th>Reservation ID</th>
@@ -36,53 +39,54 @@
             <td>{{this.durationMinutes}}</td>
             <td>{{this.guestCount}}</td>
             <td>
-                <div class="update-delete-section">
-                        <!-- Update Form -->
-                        <form action="/reservations/update/{{this.reservationId}}" method="POST">
-                            <span>Customer name/Id: </span>
-                            <select id="customerId" name="customerId" required>
-                                <!-- Select the current customerId as the default option -->
-                                <option value="{{this.customerId}}" selected>{{this.customerId}} ({{this.customerName}})</option>
-                                {{#each ../customers}}
-                                    <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
-                                {{/each}}
-                            </select>
 
-                            <span>Cat name/Id: </span>
-                            <select id="catId" name="catId" required>
-                                <!-- Select the current catId as the default option -->
-                                <option value="{{this.catId}}" selected>{{this.catId}} ({{this.catName}})</option>
-                                {{#each ../cats}}
-                                    <option value="{{this.catId}}">{{this.catId}} ({{this.name}})</option>
-                                {{/each}}
-                            </select>
+                <!-- Update Modal -->
+            <div class="update-delete-section">
+                    <form action="/reservations/update/{{this.reservationId}}" method="POST">
+                        <span>Customer name/Id: </span>
+                        <select id="customerId" name="customerId" required>
+                            <!-- List all customer names + ids-->
+                            <option value="{{this.customerId}}" selected>{{this.customerId}} ({{this.customerName}})</option>
+                            {{#each ../customers}}
+                                <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
+                            {{/each}}
+                        </select>
 
-                            <span>Date/Time: </span><input type="datetime-local" name="date" value="{{this.date}}" required>
-                            <span>Duration (mins): </span><input type="number" name="durationMinutes" min="1" value="{{this.durationMinutes}}" required>
-                            <span>Guest Count: </span> <input type="number" name="guestCount" min="1" value="{{this.guestCount}}" required>
-                            <button type="submit" class="table_button">Update</button>
-                        </form>
+                        <span>Cat name/Id: </span>
+                        <select id="catId" name="catId" required>
+                            <!-- List all cat names + ids -->
+                            <option value="{{this.catId}}" selected>{{this.catId}} ({{this.catName}})</option>
+                            {{#each ../cats}}
+                                <option value="{{this.catId}}">{{this.catId}} ({{this.name}})</option>
+                            {{/each}}
+                        </select>
 
-                        <!-- Delete Button -->
-                        <form action="/reservations/delete/{{this.reservationId}}" method="POST">
-                            <button type="submit" class="table_button">Delete</button>
-                        </form>
-                    </div>
+                        <span>Date/Time: </span><input type="datetime-local" name="date" value="{{this.date}}" required>
+                        <span>Duration (mins): </span><input type="number" name="durationMinutes" min="1" value="{{this.durationMinutes}}" required>
+                        <span>Guest Count: </span> <input type="number" name="guestCount" min="1" value="{{this.guestCount}}" required>
+                        <button type="submit" class="table_button">Update</button>
+                    </form>
+
+                    <!-- Delete Button -->
+                    <form action="/reservations/delete/{{this.reservationId}}" method="POST">
+                        <button type="submit" class="table_button">Delete</button>
+                    </form>
+                </div>
             </td>
         </tr>
         {{/each}}
         </table>
 
-
+        <!-- Modal for creating an entity -->
         <div class="entity-modal-overlay hidden" id="create-overlay">
             <div class="entity-modal">
                 <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
                 <h3>Create a new reservation</h3>
                 <form action="/reservations/add" method="POST" class="entity-attribute-selection">
                     <div class="attribute-field">
+                        <!-- List all customer names + ids -->
                         <label for='customerId'>Customer ID:</label>
                             <select id="customerId" name="customerId" required>
-                                <!-- Select the current customerId as the default option -->
                                 <option value="{{this.customerId}}" selected></option>
                                 {{#each customers}}
                                     <option value="{{this.customerId}}">{{this.customerId}} ({{this.name}})</option>
@@ -91,9 +95,9 @@
                     </div>
 
                     <div class="attribute-field">
+                        <!-- List all cat names + ids -->
                         <label for='catId'>Cat ID:</label>
                             <select id="catId" name="catId" required>
-                                <!-- Select the current catId as the default option -->
                                 <option value="{{this.catId}}" selected></option>
                                 {{#each cats}}
                                     <option value="{{this.catId}}">{{this.catId}} ({{this.name}})</option>
